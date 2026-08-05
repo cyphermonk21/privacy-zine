@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Privacy-respecting alternatives to the tools you use every day.">
+  <meta name="robots" content="index, follow">
+  <title>Digital Privacy Pocket Toolkit</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <header>
+    <h1>🛡️ Digital Privacy Pocket Toolkit</h1>
+    <p class="tagline">Scan. Swap. Share.</p>
+    <p class="intro">Privacy-respecting alternatives to mainstream services.<br>
+    Every tool listed here is open-source or doesn't sell your data.</p>
+  </header>
+
+  <nav id="categories"></nav>
+
+  <footer>
+    <p>
+      <a href="https://github.com/YOUR_USERNAME/privacy-zine">📄 View Source on GitHub</a> ·
+      <a href="/privacy-zine-v1.0.0-en.pdf">📥 Download PDF</a> ·
+      <a href="https://github.com/YOUR_USERNAME/privacy-zine/issues">Suggest a Tool</a>
+    </p>
+    <p class="small">No cookies. No tracking. No analytics. Just information.</p>
+    <p class="small">Content licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a></p>
+  </footer>
+
+  <script>
+    // Render tools from tools.json — keeps zine & web in sync
+    fetch('../src/data/tools.json')
+      .then(r => r.json())
+      .then(data => {
+        const nav = document.getElementById('categories');
+        data.categories.forEach(cat => {
+          const section = document.createElement('section');
+          section.className = 'category';
+          section.id = cat.id;
+
+          const tools = cat.privacy_tools.map(t =>
+            `<li><a href="${t.url}" target="_blank" rel="noopener noreferrer"><strong>${t.name}</strong></a><span>${t.note}</span></li>`
+          ).join('');
+
+          const replaced = cat.mainstream_tools.length
+            ? `<p class="replaces">Replaces: ${cat.mainstream_tools.join(', ')}</p>`
+            : '';
+
+          section.innerHTML = `
+            <h2>${cat.label}</h2>
+            ${cat.tagline ? `<p class="tagline">${cat.tagline}</p>` : ''}
+            ${replaced}
+            <ul class="tools">${tools}</ul>
+          `;
+          nav.appendChild(section);
+        });
+      });
+  </script>
+</body>
+</html>
