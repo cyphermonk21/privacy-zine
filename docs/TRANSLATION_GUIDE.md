@@ -35,3 +35,10 @@ The zine consists of:
 ## Text Strings File
 
 All translatable text lives in `src/data/tools.json`. Each entry looks like:
+json { "category": "maps", "label": "Maps", "privacy_tools": ["OrganicMaps", "OsmAnd"], "mainstream_tools": ["Google Maps", "Apple Maps", "Waze"], "annotation": "Offline-first maps using OpenStreetMap data" }
+
+Only translate `label`, `annotation`, and any free-text fields. Tool names stay unchanged.
+
+## Questions?
+
+Open an issue with the "translation" label.
