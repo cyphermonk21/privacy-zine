@@ -35,6 +35,13 @@ A pocket-sized zine presenting mainstream services alongside privacy-focused alt
 3. Submit a Pull Request
 4. See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines
 
+## Remix This
+Feel free to fork this project and adapt it for your community! We'd love to see:
+- Translations
+- Region-specific tool recommendations
+- Different languages / cultural contexts
+- Alternative designs/layouts
+
 ### For Translators
 See [Translation Guide](docs/TRANSLATION_GUIDE.md) — no design skills needed for text-only translations.
 
