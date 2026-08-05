@@ -3,6 +3,155 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Privacy-respecting alternatives to the tools you use every day. Open-source, editable, printable zine.">
+  <meta name="robots" content="index, follow">
+  <meta name="referrer" content="no-referrer">
+  <title>Digital Privacy Pocket Toolkit</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <header>
+    <h1>🛡️ Digital Privacy Pocket Toolkit</h1>
+    <p class="tagline">Scan. Swap. Share.</p>
+    <p class="intro">Privacy-respecting alternatives to mainstream services.<br>
+    Every tool listed here is open-source or doesn't sell your data.</p>
+    <p class="links-row">
+      <a href="https://github.com/YOUR_USERNAME/privacy-zine" target="_blank" rel="noopener noreferrer">📄 Source</a> ·
+      <a href="../dist/privacy-zine-v1.0.0-en.pdf" download>📥 Download PDF</a> ·
+      <a href="https://github.com/YOUR_USERNAME/privacy-zine/issues" target="_blank" rel="noopener noreferrer">💬 Suggest a Tool</a>
+    </p>
+  </header>
+
+  <!-- Intro questions -->
+  <section id="intro"></section>
+
+  <!-- Tool categories -->
+  <nav id="categories"></nav>
+
+  <!-- Reading list -->
+  <section id="reading-list"></section>
+
+  <!-- Resources -->
+  <section id="resources"></section>
+
+  <footer>
+    <p class="small">No cookies. No tracking. No analytics. Just information.</p>
+    <p class="small">Content licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a></p>
+    <p class="small">Built with <a href="https://penpot.app" target="_blank" rel="noopener noreferrer">Penpot</a>. Hosted on GitHub Pages.</p>
+  </footer>
+
+  <script>
+    fetch('../src/data/tools.json')
+      .then(r => r.json())
+      .then(data => {
+        /* ---- INTRO ---- */
+        const introEl = document.getElementById('intro');
+        if (data.intro) {
+          let html = '';
+          data.intro.questions.forEach(q => {
+            const points = q.points.filter(p => p.trim()).length
+              ? `<ul>${q.points.map(p => `<li>${p}</li>`).join('')}</ul>`
+              : `<p class="placeholder">— Content coming soon —</p>`;
+            html += `<div class="intro-block"><h2>${q.heading}</h2>${points}</div>`;
+          });
+          if (data.intro.encryption_note) {
+            html += `<div class="intro-block"><h2>Encryption</h2><p class="placeholder">${data.intro.encryption_note}</p></div>`;
+          }
+          introEl.innerHTML = html;
+        }
+
+        /* ---- CATEGORIES ---- */
+        const catEl = document.getElementById('categories');
+        data.categories.forEach(cat => {
+          const groupsHtml = cat.groups.map(g => {
+            const tools = g.tools.map(t =>
+              `<li><a href="${t.url}" target="_blank" rel="noopener noreferrer"><strong>${t.name}</strong></a><span>${t.note || ''}</span></li>`
+            ).join('');
+            const replaces = g.replaces && g.replaces.length
+              ? `<p class="replaces">Replaces: ${g.replaces.join(', ')}</p>`
+              : '';
+            const useCase = g.use_case
+              ? `<p class="use-case">${g.use_case}</p>`
+              : '';
+            return `<div class="tool-group">${replaces}${useCase}<ul class="tools">${tools}</ul></div>`;
+          }).join('');
+
+          const section = document.createElement('section');
+          section.className = 'category';
+          section.id = cat.id;
+          section.innerHTML = `
+            <h2>${cat.label}</h2>
+            ${cat.tagline ? `<p class="cat-tagline">${cat.tagline}</p>` : ''}
+            ${groupsHtml}
+          `;
+          catEl.appendChild(section);
+        });
+
+        /* ---- READING LIST ---- */
+        const readEl = document.getElementById('reading-list');
+        if (data.reading_list && data.reading_list.length) {
+          const books = data.reading_list.map(b =>
+            `<li><span class="book-title">${b.title}</span><span class="book-author">${b.author}</span></li>`
+          ).join('');
+          readEl.innerHTML = `
+            <h2>📚 Reading List</h2>
+            <p class="cat-tagline">Books to deepen your understanding of privacy, freedom, and digital sovereignty.</p>
+            <ul class="book-list">${books}</ul>
+          `;
+        }
+
+        /* ---- RESOURCES ---- */
+        const resEl = document.getElementById('resources');
+        if (data.resources) {
+          let html = '<h2>🔗 Additional Resources</h2>';
+
+          if (data.resources.curated_lists && data.resources.curated_lists.length) {
+            html += '<h3>Curated Lists & Directories</h3><ul class="resource-list">';
+            data.resources.curated_lists.forEach(r => {
+              html += `<li><a href="${r.url}" target="_blank" rel="noopener noreferrer"><strong>${r.name}</strong></a><span>${r.note || ''}</span></li>`;
+            });
+            html += '</ul>';
+          }
+
+          if (data.resources.articles && data.resources.articles.length) {
+            html += '<h3>Articles & Blog Posts</h3><ul class="resource-list">';
+            data.resources.articles.forEach(r => {
+              html += `<li><a href="${r.url}" target="_blank" rel="noopener noreferrer"><strong>${r.name}</strong></a><span>${r.source || ''}</span></li>`;
+            });
+            html += '</ul>';
+          }
+
+          if (data.resources.tools && data.resources.tools.length) {
+            html += '<h3>Utility Tools</h3><ul class="resource-list">';
+            data.resources.tools.forEach(r => {
+              html += `<li><a href="${r.url}" target="_blank" rel="noopener noreferrer"><strong>${r.name}</strong></a><span>${r.note || ''}</span></li>`;
+            });
+            html += '</ul>';
+          }
+
+          if (data.resources.courses && data.resources.courses.length) {
+            html += '<h3>Courses</h3><ul class="resource-list">';
+            data.resources.courses.forEach(r => {
+              html += `<li><a href="${r.url}" target="_blank" rel="noopener noreferrer"><strong>${r.name}</strong></a><span>${r.source || ''}</span></li>`;
+            });
+            html += '</ul>';
+          }
+
+          resEl.innerHTML = html;
+        }
+      })
+      .catch(err => {
+        document.getElementById('categories').innerHTML =
+          '<p class="error">Failed to load tool data. If you are viewing this locally, run a local server (e.g., <code>python3 -m http.server</code>) from the repo root.</p>';
+      });
+  </script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Privacy-respecting alternatives to the tools you use every day.">
   <meta name="robots" content="index, follow">
   <title>Digital Privacy Pocket Toolkit</title>
