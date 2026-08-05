@@ -1,0 +1,9 @@
+title: Digital Privacy Pocket Toolkit
+description: Privacy-respecting alternatives to everyday tools
+url: "https://YOUR_USERNAME.github.io"
+baseurl: "/privacy-zine"
+exclude:
+  - src/
+  - dist/
+  - docs/
+  - translations/
