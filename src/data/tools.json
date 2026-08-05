@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "version": "1.0.0",
+    "last_updated": "2025-08-05",
+    "license": "CC BY-SA 4.0"
+  },
+  "categories": [
+    {
+      "id": "maps",
+      "label": "Maps",
+      "tagline": "",
+      "privacy_tools": [
+        {
+          "name": "OrganicMaps",
+          "url": "https://organicmaps.app",
+          "note": "Offline-first maps powered by OpenStreetMap. No tracking."
+        },
+        {
+          "name": "OsmAnd",
+          "url": "https://osmand.net",
+          "note": "Open-source offline maps, highly customizable."
+        }
+      ],
+      "mainstream_tools": ["Google Maps", "Apple Maps", "Waze"]
+    },
+    {
+      "id": "ai",
+      "label": "AI",
+      "tagline": "Locally-run or privacy-respecting AI",
+      "privacy_tools": [
+        {
+          "name": "Ollama",
+          "url": "https://ollama.com",
+          "note": "Run LLMs locally. Your data never leaves your device."
+        },
+        {
+          "name": "Proton Lumo",
+          "url": "https://proton.me/lumo",
+          "note": "Privacy-first AI assistant with zero-access encryption."
+        },
+        {
+          "name": "Brave Leo",
+          "url": "https://brave.com/leo",
+          "note": "AI built into the Brave browser, no account required."
+        }
+      ],
+      "mainstream_tools": ["ChatGPT", "Gemini", "Claude", "Copilot"]
+    },
+    {
+      "id": "browsing",
+      "label": "Browsing",
+      "tagline": "",
+      "privacy_tools": [
+        {
+          "name": "Brave",
+          "url": "https://brave.com",
+          "note": "Built-in ad/tracker blocking, Chromium-based."
+        },
+        {
+          "name": "Firefox",
+          "url": "https://mozilla.org/firefox",
+          "note": "Non-profit backed, highly customizable privacy settings."
+        },
+        {
+          "name": "DuckDuckGo",
+          "url": "https://duckduckgo.com",
+          "note": "Search engine that doesn't track you."
+        },
+        {
+          "name": "Brave Search",
+          "url": "https://search.brave.com",
+          "note": "Independent search index, no tracking."
+        }
+      ],
+      "mainstream_tools": ["Chrome", "Safari", "Google Search"]
+    },
+    {
+      "id": "vpn",
+      "label": "VPN",
+      "tagline": "Doesn't share data with third parties & ISPs",
+      "privacy_tools": [
+        {
+          "name": "ProtonVPN",
+          "url": "https://protonvpn.com",
+          "note": "Open-source apps, audited, based in Switzerland."
+        },
+        {
+          "name": "Mullvad",
+          "url": "https://mullvad.net",
+          "note": "No account/email required, cash payment option."
+        },
+        {
+          "name": "IVPN",
+          "url": "https://ivpn.net",
+          "note": "Independent audit, no-log policy, WireGuard support."
+        }
+      ],
+      "mainstream_tools": []
+    },
+    {
+      "id": "passwords",
+      "label": "Passwords & 2FA",
+      "tagline": "",
+      "privacy_tools": [
+        {
+          "name": "Bitwarden",
+          "url": "https://bitwarden.com",
+          "note": "Open-source password manager, free tier covers essentials."
+        },
+        {
+          "name": "Proton Pass",
+          "url": "https://proton.me/pass",
+          "note": "Encrypted password manager with email aliasing."
+        },
+        {
+          "name": "Proton Authenticator",
+          "url": "https://proton.me/authenticator",
+          "note": "Encrypted 2FA app with cloud sync."
+        }
+      ],
+      "mainstream_tools": ["Google Password Manager", "Google Authenticator"]
+    },
+    {
+      "id": "messaging",
+      "label": "Messaging & Mail",
+      "tagline": "",
+      "privacy_tools": [
+        {
+          "name": "Signal",
+          "url": "https://signal.org",
+          "note": "End-to-end encrypted messaging, open-source, non-profit."
+        },
+        {
+          "name": "SimpleX Chat",
+          "url": "https://simplex.chat",
+          "note": "No phone number, no user ID — maximum metadata protection."
+        },
+        {
+          "name": "Proton Mail",
+          "url": "https://proton.me/mail",
+          "note": "End-to-end encrypted email, zero-access architecture."
+        }
+      ],
+      "mainstream_tools": ["WhatsApp", "Gmail", "Yahoo Mail", "Outlook"]
+    },
+    {
+      "id": "socials",
+      "label": "Socials",
+      "tagline": "Own your data, be uncensorable.",
+      "privacy_tools": [
+        {
+          "name": "Primal",
+          "url": "https://primal.net",
+          "note": "Nostr-based social client."
+        },
+        {
+          "name": "Amethyst",
+          "url": "https://github.com/vitorpamplona/amethyst",
+          "note": "Open-source Nostr client for Android."
+        },
+        {
+          "name": "YakiHonne",
+          "url": "https://yakihonne.com",
+          "note": "Nostr-based content platform."
+        }
+      ],
+      "mainstream_tools": ["Facebook", "Twitter / X", "Instagram", "Reddit"]
+    },
+    {
+      "id": "collab",
+      "label": "Collaborative Work",
+      "tagline": "",
+      "privacy_tools": [
+        {
+          "name": "Proton Drive",
+          "url": "https://proton.me/drive",
+          "note": "Encrypted cloud storage with document collaboration."
+        },
+        {
+          "name": "Proton Docs",
+          "url": "https://docs.proton.me",
+          "note": "End-to-end encrypted document editor."
+        },
+        {
+          "name": "Proton Sheets",
+          "url": "https://sheets.proton.me",
+          "note": "End-to-end encrypted spreadsheets."
+        },
+        {
+          "name": "AnyType",
+          "url": "https://anytype.io",
+          "note": "Local-first, encrypted workspace."
+        },
+        {
+          "name": "Jitsi Meet",
+          "url": "https://jitsi.org",
+          "note": "Open-source video conferencing, self-hostable."
+        },
+        {
+          "name": "Proton Meet",
+          "url": "https://proton.me/meet",
+          "note": "End-to-end encrypted video calls."
+        }
+      ],
+      "mainstream_tools": ["Google Workspace", "Slack", "Notion", "Google Meet", "Zoom"]
+    }
+  ]
+}
