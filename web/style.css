@@ -1,11 +1,13 @@
 :root {
   --bg: #0d1117;
   --surface: #161b22;
+  --surface-alt: #1c2330;
   --border: #30363d;
   --text: #e6edf3;
   --text-muted: #8b949e;
   --accent: #6d4aff;
   --accent-hover: #8c6bff;
+  --accent-dim: rgba(109, 74, 255, 0.12);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,39 +17,108 @@ body {
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
-  max-width: 760px;
+  max-width: 820px;
   margin: 0 auto;
   padding: 2rem 1rem 4rem;
 }
 
-header { text-align: center; margin-bottom: 3rem; }
+/* ---- Header ---- */
+header { text-align: center; margin-bottom: 2.5rem; }
+h1 { font-size: 1.8rem; margin-bottom: 0.4rem; }
+.tagline {
+  font-size: 1.1rem;
+  color: var(--accent);
+  font-weight: 600;
+}
+.intro { color: var(--text-muted); margin-top: 0.75rem; }
+.links-row { margin-top: 1rem; }
+.links-row a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+.links-row a:hover { color: var(--accent-hover); text-decoration: underline; }
 
-h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-.tagline { font-size: 1.1rem; color: var(--accent); font-weight: 600; }
-.intro { color: var(--text-muted); margin-top: 1rem; }
+/* ---- Intro blocks ---- */
+#intro {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.intro-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 1.2rem;
+}
+.intro-block h2 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.intro-block ul {
+  list-style: disc;
+  padding-left: 1.2rem;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.placeholder {
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.85rem;
+  opacity: 0.7;
+}
 
+/* ---- Category cards ---- */
 .category {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
-
 .category h2 {
-  font-size: 1.3rem;
+  font-size: 1.25rem;
   border-bottom: 2px solid var(--accent);
   display: inline-block;
   padding-bottom: 0.25rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+.cat-tagline {
+  font-style: italic;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
 }
 
-.tagline { font-style: italic; color: var(--text-muted); margin-bottom: 0.5rem; }
-.replaces { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+/* ---- Tool groups within a category ---- */
+.tool-group {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px dashed var(--border);
+}
+.tool-group:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.replaces {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.use-case {
+  font-size: 0.85rem;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-radius: 4px;
+  padding: 0.4rem 0.6rem;
+  margin-bottom: 0.5rem;
+}
 
+/* ---- Tool list ---- */
 .tools { list-style: none; }
 .tools li {
-  padding: 0.6rem 0;
+  padding: 0.55rem 0;
   border-bottom: 1px solid var(--border);
   display: flex;
   justify-content: space-between;
@@ -60,15 +131,111 @@ h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
   color: var(--accent);
   text-decoration: none;
   font-weight: 600;
+  white-space: nowrap;
 }
 .tools a:hover { color: var(--accent-hover); text-decoration: underline; }
-.tools span { color: var(--text-muted); font-size: 0.9rem; text-align: right; }
+.tools span {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  text-align: right;
+  flex: 1;
+  min-width: 150px;
+}
 
-footer { text-align: center; margin-top: 3rem; }
-footer a { color: var(--accent); }
-.small { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.5rem; }
+/* ---- Reading list ---- */
+#reading-list {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+.book-list {
+  list-style: none;
+  margin-top: 0.75rem;
+}
+.book-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.book-list li:last-child { border-bottom: none; }
+.book-title { font-weight: 600; }
+.book-author { color: var(--text-muted); font-size: 0.88rem; text-align: right; }
 
-@media (max-width: 500px) {
-  .tools li { flex-direction: column; gap: 0.2rem; }
-  .tools span { text-align: left; }
+/* ---- Resources ---- */
+#resources {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+#resources h3 {
+  font-size: 0.95rem;
+  color: var(--accent);
+  margin: 1.25rem 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+#resources h3:first-of-type { margin-top: 0.75rem; }
+.resource-list {
+  list-style: none;
+}
+.resource-list li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+.resource-list li:last-child { border-bottom: none; }
+.resource-list a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+.resource-list a:hover { color: var(--accent-hover); text-decoration: underline; }
+.resource-list span {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+/* ---- Footer ---- */
+footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+}
+footer a { color: var(--accent); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
+.small { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.4rem; }
+
+.error {
+  background: rgba(255, 80, 80, 0.1);
+  border: 1px solid rgba(255, 80, 80, 0.3);
+  border-radius: 8px;
+  padding: 1rem;
+  color: #ff9999;
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 600px) {
+  .tools li, .book-list li, .resource-list li {
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+  .tools span, .book-author, .resource-list span {
+    text-align: left;
+  }
+  #intro {
+    grid-template-columns: 1fr;
+  }
 }
