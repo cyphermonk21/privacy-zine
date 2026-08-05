@@ -1,117 +1,174 @@
 {
   "meta": {
-    "version": "1.1.0",
+    "version": "2.0.0",
     "last_updated": "2026-08-05",
     "license": "CC BY-SA 4.0"
   },
   "intro": {
+    "hero": {
+      "headline": "Your data is being harvested. Here's how to take it back.",
+      "subhead": "Every app you use, every search you make, every message you send — someone's collecting it. This is your pocket guide to swapping the tools that spy on you for ones that don't."
+    },
     "questions": [
-      { "heading": "What is digital privacy?", "points": ["", "", ""] },
-      { "heading": "Why should you care?", "points": ["", "", ""] }
+      {
+        "heading": "What is digital privacy?",
+        "points": [
+          "It's not about having something to hide — it's about controlling who gets to see your stuff",
+          "It's the right to exist online without being tracked, profiled, and sold",
+          "Think of it like curtains on your windows: you're not doing anything wrong, you just don't want strangers watching"
+        ]
+      },
+      {
+        "heading": "Why should you care?",
+        "points": [
+          "Your data can be used to manipulate what you see, buy, and believe",
+          "Once it's out there, you can't get it back — data breaches are forever",
+          "Companies make billions selling your attention. You see $0 of that",
+          "Privacy isn't about going off-grid. It's about choosing what you share and with whom"
+        ]
+      }
     ],
-    "encryption_note": "Something about encryption? — TODO: brief explainer on E2E encryption, what it means, and why it matters."
+    "encryption_blurb": "**Encryption** scrambles your data so only you and the person you're talking to can read it. Without it, your messages, emails, and files are basically postcards — anyone handling them along the way can read what's inside. End-to-end encryption (E2EE) means not even the company providing the service can see your content. It's the difference between a sealed letter and a postcard."
   },
   "categories": [
     {
       "id": "browsing-vpn",
-      "label": "Browsing / VPN",
-      "tagline": "Control what others can see and where you go.",
+      "label": "Browsing & Search",
+      "emoji": "🌐",
+      "tagline": "Stop letting your browser rat you out.",
+      "difficulty": "easy",
       "groups": [
         {
           "id": "browsers",
+          "label": "Browsers",
           "tools": [
             {
               "name": "Brave",
               "url": "https://brave.com/",
-              "note": "Built-in ad/tracker blocking. Chromium-based."
+              "note": "Blocks ads & trackers by default. Looks like Chrome, acts nothing like it."
             },
             {
               "name": "Firefox",
               "url": "https://www.mozilla.org/firefox/",
-              "note": "Non-profit backed. Highly customizable privacy settings."
+              "note": "Independent, non-profit, customizable. Add uBlock Origin and you're golden."
+            },
+            {
+              "name": "LibreWolf",
+              "url": "https://librewolf.net/",
+              "note": "Firefox with all telemetry ripped out. Hardened privacy, zero phone-home."
+            },
+            {
+              "name": "Mullvad Browser",
+              "url": "https://mullvad.net/en/browser",
+              "note": "Tor-level fingerprint protection without the Tor speed hit. Built with the Tor Project."
             }
           ],
-          "replaces": ["Chrome"]
+          "replaces": ["Chrome", "Safari", "Edge"],
+          "quick_win": "Install uBlock Origin on whatever browser you use. It's free, open-source, and kills 90% of tracking. Takes 10 seconds."
         },
         {
           "id": "search-engines",
+          "label": "Search",
           "tools": [
             {
               "name": "DuckDuckGo",
               "url": "https://duckduckgo.com/",
-              "note": "Search without being tracked."
+              "note": "No tracking, no profiling, no filter bubble. Same search, no spyware."
             },
             {
               "name": "Brave Search",
               "url": "https://search.brave.com/",
-              "note": "Independent search index. No tracking."
+              "note": "Independent index (not Bing/Google reskinned). Anonymous results."
+            },
+            {
+              "name": "SearxNG",
+              "url": "https://searxng.org/",
+              "note": "Self-hostable meta-search. Queries multiple engines, strips trackers."
             }
           ],
-          "replaces": ["Google Search"]
+          "replaces": ["Google Search", "Bing"]
         },
         {
           "id": "vpn",
+          "label": "VPN",
           "tools": [
             {
               "name": "ProtonVPN",
               "url": "https://protonvpn.com/",
-              "note": "Open-source apps, audited, based in Switzerland."
+              "note": "Swiss-based, open-source, audited. Free tier exists and doesn't suck."
             },
             {
               "name": "Mullvad",
               "url": "https://mullvad.net/",
-              "note": "No account/email required. Cash payment option."
+              "note": "No account, no email, pay with cash. The most anonymous VPN setup possible."
             },
             {
               "name": "IVPN",
               "url": "https://www.ivpn.net/en/",
-              "note": "Independent audit, no-log policy, WireGuard support."
+              "note": "Independently audited, no-log policy, WireGuard support."
             }
           ],
-          "replaces": ["Other free VPNs"],
-          "use_case": "Public Wi-Fi safety, bypass blocked servers, prevent ISPs & third parties from seeing your browsing data & location."
+          "replaces": ["Free VPNs that sell your data"],
+          "use_case": "Use on public Wi-Fi, to bypass blocks, and to stop your ISP from selling your browsing history.",
+          "quick_win": "Even a free VPN is better than no VPN on airport/cafe Wi-Fi. But paid ones don't sell your data."
         }
       ]
     },
     {
       "id": "messaging-mail-socials",
-      "label": "Messaging / Mail / Socials",
-      "tagline": "Communicate without surveillance.",
+      "label": "Messaging & Mail",
+      "emoji": "💬",
+      "tagline": "Your conversations shouldn't be someone's business model.",
+      "difficulty": "easy",
       "groups": [
         {
           "id": "messaging",
+          "label": "Messaging",
           "tools": [
             {
-              "name": "Signal Messenger",
+              "name": "Signal",
               "url": "https://signal.org/",
-              "note": "Truly end-to-end encrypted chat. Open-source, non-profit."
+              "note": "Gold standard for encrypted chat. Non-profit, open-source, audited. Just use it."
+            },
+            {
+              "name": "SimpleX Chat",
+              "url": "https://simplex.chat/",
+              "note": "Zero identifiers. No phone number, no email, no user ID. Audited by Trail of Bits. For when you need to go dark."
             },
             {
               "name": "BitChat",
               "url": "https://bitchat.free/",
-              "note": "Bluetooth-mesh based messaging. Anonymous chat even without internet."
+              "note": "Bluetooth mesh messaging. Works with zero internet. For protests, festivals, or when the grid goes down."
             }
           ],
-          "replaces": ["WhatsApp"]
+          "replaces": ["WhatsApp", "Telegram", "iMessage"],
+          "quick_win": "Getting your friends on Signal is the single highest-impact privacy swap you can make. It's free, easy, and works exactly like WhatsApp."
         },
         {
           "id": "email",
+          "label": "Email",
           "tools": [
             {
               "name": "Proton Mail",
               "url": "https://mail.proton.me/",
-              "note": "End-to-end encrypted email with zero-access architecture."
+              "note": "Encrypted inbox, zero-access architecture. Even Proton can't read your mail."
+            },
+            {
+              "name": "Tuta Mail",
+              "url": "https://tuta.com/",
+              "note": "German-made, fully open-source, E2EE calendar included."
             }
           ],
           "replaces": ["Gmail", "Yahoo Mail", "Outlook"]
         },
         {
           "id": "socials",
+          "label": "Socials",
           "tools": [
             {
               "name": "Nostr — Primal",
               "url": "https://primal.net/",
-              "note": "Nostr-based social client."
+              "note": "Nostr social client. Your followers belong to you, not the platform."
             },
             {
               "name": "Nostr — Amethyst",
@@ -121,24 +178,25 @@
             {
               "name": "Nostr — YakiHonne",
               "url": "https://yakihonne.com/",
-              "note": "Nostr-based content platform."
+              "note": "Nostr-based content platform. Own your social graph, be uncensorable."
             }
           ],
           "replaces": ["Twitter / X", "Facebook", "Reddit", "Instagram"],
-          "use_case": "Own your data & social graph across platforms. Be uncensorable."
+          "use_case": "Nostr is a protocol, not a platform. Your account isn't owned by any company. Switch clients whenever you want — your followers come with you."
         },
         {
           "id": "video-calls",
+          "label": "Video Calls",
           "tools": [
             {
               "name": "Jitsi Meet",
               "url": "https://meet.jit.si/",
-              "note": "Secure, high quality meetings without any account."
+              "note": "Open-source, no account needed. Just share a link and you're in."
             },
             {
               "name": "Proton Meet",
               "url": "https://proton.me/meet",
-              "note": "End-to-end encrypted video calls."
+              "note": "E2EE video calls from the Proton ecosystem."
             }
           ],
           "replaces": ["Google Meet", "Zoom"]
@@ -147,86 +205,116 @@
     },
     {
       "id": "collaboration-sharing",
-      "label": "Collaboration / Sharing",
-      "tagline": "Work together without giving up your data.",
+      "label": "Collaboration & Files",
+      "emoji": "📁",
+      "tagline": "Your documents shouldn't live on someone else's server.",
+      "difficulty": "medium",
       "groups": [
         {
           "id": "cloud-docs",
+          "label": "Cloud & Docs",
           "tools": [
             {
               "name": "Proton Drive",
               "url": "https://proton.me/drive",
-              "note": "Encrypted cloud storage with document collaboration."
+              "note": "Encrypted cloud storage + file sharing. Swiss, audited, generous free tier."
             },
             {
               "name": "Proton Docs",
               "url": "https://docs.proton.me/",
-              "note": "End-to-end encrypted document editor."
+              "note": "Real-time collaborative docs — encrypted end-to-end."
             },
             {
               "name": "Proton Sheets",
               "url": "https://sheets.proton.me/",
-              "note": "End-to-end encrypted spreadsheets."
+              "note": "Encrypted spreadsheets. Your formulas, nobody else's business."
             },
             {
               "name": "CryptPad",
               "url": "https://cryptpad.fr/",
-              "note": "Fully encrypted collaboration suite."
+              "note": "Full encrypted office suite — docs, slides, forms, whiteboards."
+            },
+            {
+              "name": "Nextcloud",
+              "url": "https://nextcloud.com/",
+              "note": "Self-hosted Google Workspace replacement. Files, calendar, tasks, video calls — all yours."
             }
           ],
-          "replaces": ["Google Workspace"]
+          "replaces": ["Google Workspace", "OneDrive", "Dropbox"],
+          "quick_win": "Moving your most sensitive docs to Proton Drive is free and instant. Full migration can wait."
         },
         {
           "id": "team-comms",
+          "label": "Team Chat",
           "tools": [
+            {
+              "name": "Element",
+              "url": "https://element.io/",
+              "note": "Matrix-based, federated, self-hostable. Like Discord but you own the server."
+            },
             {
               "name": "Buzz",
               "url": "https://buzz.xyz/",
-              "note": "Can be self-hosted. Also runs AI agents."
+              "note": "Self-hostable team chat with AI agents built in."
             }
           ],
           "replaces": ["Slack", "Discord"]
         },
         {
           "id": "notes-pm",
+          "label": "Notes & Projects",
           "tools": [
             {
               "name": "AnyType",
               "url": "https://anytype.io/",
-              "note": "Privately collaborate on project management and notes. Local-first."
+              "note": "Local-first workspace. Your data lives on your device, encrypted."
+            },
+            {
+              "name": "Standard Notes",
+              "url": "https://standardnotes.com/",
+              "note": "Zero-knowledge note-taking. Even they can't read your notes."
             }
           ],
-          "replaces": ["Notion", "Apple Notes"]
+          "replaces": ["Notion", "Apple Notes", "Evernote"]
         },
         {
           "id": "forms",
+          "label": "Forms",
           "tools": [
             {
               "name": "Formstr",
               "url": "https://formstr.app/",
-              "note": "Nostr-based alternative to Google Forms."
+              "note": "Nostr-based forms. Collect responses without feeding a data monster."
             }
           ],
           "replaces": ["Google Forms"]
         },
         {
           "id": "photos",
+          "label": "Photos",
           "tools": [
+            {
+              "name": "Immich",
+              "url": "https://immich.app/",
+              "note": "Self-hosted Google Photos replacement. One of the fastest-growing open-source projects right now."
+            },
             {
               "name": "Ente Photos",
               "url": "https://ente.com/",
-              "note": "End-to-end encrypted photo storage. Open-source."
+              "note": "E2EE photo backup that's hosted for you. No self-hosting required."
             }
           ],
-          "replaces": ["Google Photos"]
+          "replaces": ["Google Photos", "iCloud Photos"],
+          "quick_win": "Immich + an old laptop or NAS = your own private Google Photos. Tutorials are everywhere on YouTube."
         },
         {
           "id": "video-platform",
+          "label": "Video Hosting",
           "tools": [
             {
               "name": "Rumble",
               "url": "https://rumble.com/",
-              "note": "Share and stream video with fewer restrictions."
+              "note": "Fewer restrictions, less algorithm curation."
             }
           ],
           "replaces": ["YouTube"]
@@ -235,118 +323,124 @@
     },
     {
       "id": "ai-intelligence",
-      "label": "AI / Intelligence",
-      "tagline": "Private AI that doesn't train on your data.",
+      "label": "AI",
+      "emoji": "🤖",
+      "tagline": "Ask AI without handing over your entire digital life.",
+      "difficulty": "easy",
       "groups": [
         {
           "id": "private-ai",
+          "label": "Private AI Chat",
           "tools": [
             {
-              "name": "Maple",
-              "url": "https://trymaple.ai/",
-              "note": "Private AI chat."
+              "name": "Proton Lumo",
+              "url": "https://proton.me/lumo",
+              "note": "Encrypted AI chat. Your conversations aren't training data."
             },
             {
               "name": "Venice",
               "url": "https://venice.ai/",
-              "note": "Private, decentralized AI."
+              "note": "Private, decentralized AI. No account, no tracking."
             },
             {
               "name": "Brave Leo",
               "url": "https://search.brave.com/ask",
-              "note": "AI built into Brave browser. No account required."
+              "note": "AI built into Brave. No sign-up, no data retention."
             },
             {
-              "name": "Proton Lumo",
-              "url": "https://proton.me/lumo",
-              "note": "Privacy-first AI assistant with zero-access encryption."
+              "name": "Maple",
+              "url": "https://trymaple.ai/",
+              "note": "Privacy-first AI assistant."
             }
           ],
-          "replaces": ["ChatGPT", "Gemini", "Claude", "Copilot"]
+          "replaces": ["ChatGPT", "Gemini", "Claude (free tiers)"],
+          "quick_win": "If you're asking AI about medical, legal, or personal stuff, use a privacy-respecting option. Your prompts shouldn't be anyone's dataset."
         },
         {
           "id": "local-ai",
+          "label": "Local AI (Runs on Your Device)",
           "tools": [
             {
               "name": "Ollama",
               "url": "https://ollama.com/",
-              "note": "Run LLMs locally. Your data never leaves your device."
-            },
-            {
-              "name": "Goose",
-              "url": "https://goose-docs.ai/docs/quickstart",
-              "note": "Local AI agent framework."
+              "note": "Run LLMs on your laptop. Data never leaves your machine. It's actually that simple."
             },
             {
               "name": "OpenRouter",
               "url": "https://openrouter.ai/",
-              "note": "Route queries to multiple models."
+              "note": "One API, hundreds of models. Route queries to whichever AI you want."
+            },
+            {
+              "name": "Goose",
+              "url": "https://goose-docs.ai/docs/quickstart",
+              "note": "Local AI agent framework. Automate tasks without leaking data."
             },
             {
               "name": "Odysseus",
               "url": "https://odysseusai.dev/",
-              "note": "Local AI for data-sensitive queries."
+              "note": "Local AI built for sensitive data queries."
             }
           ],
           "replaces": ["Cloud-only AI APIs"],
-          "use_case": "Run data-sensitive queries using any open-source model of your choice."
+          "use_case": "Anything sensitive — financial docs, health questions, work emails — should go through local AI, not a cloud service that logs everything."
         },
         {
           "id": "voice-ai",
+          "label": "Speech-to-Text",
           "tools": [
-            {
-              "name": "FluidVoice",
-              "url": "https://macparakeet.com/",
-              "note": "Local, private speech-to-text."
-            },
             {
               "name": "MacParakeet",
               "url": "https://macparakeet.com/",
-              "note": "On-device transcription for macOS."
+              "note": "On-device transcription for macOS. Audio never touches a server."
             }
           ],
-          "replaces": ["ElevenLabs", "OpenAI Whisper (cloud)"]
+          "replaces": ["Otter.ai", "OpenAI Whisper (cloud)"]
         }
       ]
     },
     {
       "id": "operating-systems",
       "label": "Operating Systems",
-      "tagline": "The foundation starts at the OS level.",
+      "emoji": "🖥️",
+      "tagline": "The deepest layer of control. Start here if you're serious.",
+      "difficulty": "advanced",
       "groups": [
         {
           "id": "desktop-os",
+          "label": "Desktop",
           "tools": [
             {
               "name": "Ubuntu",
               "url": "https://ubuntu.com/",
-              "note": "Open-source. Beginner-friendly Linux distribution."
+              "note": "Most beginner-friendly Linux. Huge community, works out of the box."
             },
             {
               "name": "Linux Mint",
               "url": "https://linuxmint.com/",
-              "note": "Open-source. Familiar interface for Windows switchers."
+              "note": "Looks like Windows, acts like Linux. Smoothest transition for switchers."
             },
             {
               "name": "Tails",
               "url": "https://tails.net/",
-              "note": "Amnesic incognito live system. Leaves no trace."
+              "note": "Boot from USB, leave no trace on the computer. The Edward Snowden OS."
             }
           ],
-          "replaces": ["Windows", "macOS"]
+          "replaces": ["Windows", "macOS"],
+          "quick_win": "You don't have to switch your main OS. Try Linux on a USB stick first — Tails or Ubuntu Live. Zero commitment."
         },
         {
           "id": "mobile-os",
+          "label": "Mobile",
           "tools": [
             {
               "name": "GrapheneOS",
               "url": "https://grapheneos.org/",
-              "note": "Security-hardened Android ROM. De-Googled."
+              "note": "Hardened Android. Strips Google out completely. For Pixel phones."
             },
             {
               "name": "CalyxOS",
               "url": "https://calyxos.org/",
-              "note": "Privacy-focused Android ROM with built-in tooling."
+              "note": "Privacy-focused Android with optional micro-services. Gentler than Graphene."
             }
           ],
           "replaces": ["Stock Android", "iOS"]
@@ -355,117 +449,138 @@
     },
     {
       "id": "passwords-2fa",
-      "label": "Password Manager / 2FA",
-      "tagline": "Your keys, your control.",
+      "label": "Passwords & 2FA",
+      "emoji": "🔑",
+      "tagline": "Use a different password everywhere. Without remembering any of them.",
+      "difficulty": "easy",
       "groups": [
         {
           "id": "password-managers",
+          "label": "Password Managers",
           "tools": [
             {
               "name": "Bitwarden",
               "url": "https://bitwarden.com/",
-              "note": "Open-source password manager. Free tier covers essentials."
+              "note": "Open-source, free tier covers everything. 40M+ users. Set it up once, never think about passwords again."
             },
             {
               "name": "Proton Pass",
               "url": "https://proton.me/pass",
-              "note": "Encrypted password manager with email aliasing."
+              "note": "Encrypted vault + email aliases. Stop giving your real email to every site."
             }
           ],
-          "replaces": ["Chrome Password Manager"]
+          "replaces": ["Chrome password manager", "Safari keychain", "reusing the same password everywhere"],
+          "quick_win": "This is the #1 thing to do. Right now. Stop reading and go set up Bitwarden. It's free."
         },
         {
           "id": "authenticators",
+          "label": "2FA Apps",
           "tools": [
             {
               "name": "Proton Authenticator",
               "url": "https://proton.me/authenticator",
-              "note": "Encrypted 2FA app with cloud sync."
+              "note": "Encrypted 2FA with cloud sync. Lose your phone? Still get your codes."
             },
             {
               "name": "Ente Authenticator",
               "url": "https://ente.com/auth/",
-              "note": "Open-source 2FA with encrypted backup."
+              "note": "Open-source 2FA with encrypted backup. Self-hostable."
             }
           ],
-          "replaces": ["Google Authenticator"]
+          "replaces": ["Google Authenticator", "Authy"]
         }
       ]
     },
     {
       "id": "maps",
       "label": "Maps",
-      "tagline": "Navigate without being navigated.",
+      "emoji": "🗺️",
+      "tagline": "Get directions without broadcasting where you're going.",
+      "difficulty": "easy",
       "groups": [
         {
           "id": "map-tools",
+          "label": "Navigation",
           "tools": [
             {
               "name": "OrganicMaps",
               "url": "https://organicmaps.app/",
-              "note": "Offline-first maps powered by OpenStreetMap. No tracking."
+              "note": "Offline-first, no tracking. Download your city, navigate without signal or surveillance."
             },
             {
               "name": "OsmAnd",
               "url": "https://osmand.net/",
-              "note": "Open-source offline maps. Highly customizable."
-            },
-            {
-              "name": "OpenStreetMap",
-              "url": "https://www.openstreetmap.org",
-              "note": "Community-driven map data. The backbone behind many privacy maps."
+              "note": "Power-user maps. Hiking trails, cycling routes, the works."
             }
           ],
-          "replaces": ["Google Maps", "Apple Maps", "Waze"]
+          "replaces": ["Google Maps", "Apple Maps", "Waze"],
+          "quick_win": "OrganicMaps looks and feels like Google Maps. Your grandparents wouldn't notice the switch."
         }
       ]
     },
     {
       "id": "money",
-      "label": "Money",
-      "tagline": "Financial sovereignty tools.",
+      "label": "Money & Payments",
+      "emoji": "💸",
+      "tagline": "Financial tools that don't ask for your life story.",
+      "difficulty": "medium",
       "groups": [
         {
           "id": "virtual-cards",
+          "label": "Virtual Cards",
           "tools": [
             {
               "name": "2Fiat",
               "url": "https://2fiat.com/",
-              "note": "Virtual debit cards."
+              "note": "Virtual debit cards. Spend online without exposing your real card."
             }
           ],
-          "replaces": ["Traditional bank cards for online purchases"]
+          "replaces": ["Using your real card on every website"]
         },
         {
           "id": "exchange",
+          "label": "Exchange",
           "tools": [
             {
               "name": "FixedFloat",
               "url": "https://ff.io/",
-              "note": "P2P non-KYC exchange."
+              "note": "P2P non-KYC exchange. No passport required."
             }
           ],
-          "replaces": ["KYC-required centralized exchanges"]
+          "replaces": ["KYC-heavy centralized exchanges"]
         }
       ]
     },
     {
       "id": "extras",
       "label": "Extras",
+      "emoji": "🧰",
       "tagline": "Bonus tools for the privacy-curious.",
+      "difficulty": "varies",
       "groups": [
         {
           "id": "extras-list",
+          "label": "Good to Know About",
           "tools": [
+            {
+              "name": "uBlock Origin",
+              "url": "https://github.com/gorhill/uBlock",
+              "note": "Not just an ad blocker — a tracking exterminator. Install on every browser."
+            },
+            {
+              "name": "VeraCrypt",
+              "url": "https://www.veracrypt.fr/",
+              "note": "Encrypt files, partitions, or entire drives. Military-grade, open-source."
+            },
             {
               "name": "Excalidraw",
               "url": "https://excalidraw.com/",
-              "note": "Open-source whiteboarding."
+              "note": "Open-source whiteboarding. Draw diagrams without an account."
             },
             {
               "name": "SilentLink",
               "url": "https://silent.link/",
-              "note": "E-SIMs / borderless mobile internet."
+              "note": "Anonymous e-SIMs. Borderless mobile internet, no ID required."
             },
             {
               "name": "SMS4Sats",
@@ -473,14 +588,9 @@
               "note": "Send/receive SMS privately."
             },
             {
-              "name": "Hermes Agent",
-              "url": "https://hermes-agent.nousresearch.com/",
-              "note": "AI agent for autonomous tasks."
-            },
-            {
               "name": "Citadel Chat",
               "url": "https://citadel.chat/",
-              "note": "Offline off-grid knowledgebase & AI."
+              "note": "Offline, off-grid knowledge base & AI. For when you want zero connection."
             }
           ]
         }
@@ -488,249 +598,50 @@
     }
   ],
   "reading_list": [
-    { "title": "1984", "author": "George Orwell" },
-    { "title": "Cypherpunks: Freedom and the Future of the Internet", "author": "Julian Assange & Jacob Appelbaum" },
-    { "title": "Permanent Record", "author": "Edward Snowden" },
-    { "title": "Resistance Money", "author": "Andrew M. Bailey, Bradley Rettler, Craig Warmke" },
-    { "title": "The Internet of Money (Vol 1, 2, 3)", "author": "Andreas Antonopoulos" },
-    { "title": "The Code Book", "author": "Simon Singh" },
-    { "title": "The Machinery of Freedom: Guide to a Radical Capitalism", "author": "David D. Friedman" },
-    { "title": "The Sovereign Individual", "author": "James Dale Davidson, William Rees-Mogg" },
-    { "title": "What Has Government Done To Our Money", "author": "Murray Rothbard" },
-    { "title": "When Money Dies", "author": "Adam Fergusson" }
+    { "title": "1984", "author": "George Orwell", "why": "The original surveillance-state warning. Still hits different in 2026." },
+    { "title": "Cypherpunks: Freedom and the Future of the Internet", "author": "Julian Assange & Jacob Appelbaum", "why": "The movement that built encryption into the internet." },
+    { "title": "Permanent Record", "author": "Edward Snowden", "why": "What it's like to be inside the machine — and what it costs to break out." },
+    { "title": "Resistance Money", "author": "Bailey, Rettler & Warmke", "why": "Financial privacy through the lens of cryptocurrency." },
+    { "title": "The Internet of Money (Vol 1–3)", "author": "Andreas Antonopoulos", "why": "Why money itself is a privacy question." },
+    { "title": "The Code Book", "author": "Simon Singh", "why": "The history of cryptography. Read this and encryption stops being scary." },
+    { "title": "The Machinery of Freedom", "author": "David D. Friedman", "why": "Radical ideas about how society works without central control." },
+    { "title": "The Sovereign Individual", "author": "Davidson & Rees-Mogg", "why": "Predicted the shift of power from institutions to individuals decades ago." },
+    { "title": "What Has Government Done to Our Money", "author": "Murray Rothbard", "why": "Short, angry, foundational. Understand money in an afternoon." },
+    { "title": "When Money Dies", "author": "Adam Fergusson", "why": "What happens when currency collapses. History, not theory." }
   ],
   "resources": {
     "curated_lists": [
-      { "name": "Windows Privacy Toolkit", "url": "https://github.com/NX1X/Windows-Privacy-Toolkit", "note": "GitHub repo for hardening Windows." },
-      { "name": "Awesome Privacy (paulaime)", "url": "https://github.com/paulaime/awesome-privacy", "note": "Curated list of privacy tools." },
-      { "name": "Awesome Privacy", "url": "https://awesome-privacy.xyz/", "note": "Privacy resource directory." },
-      { "name": "Nostr Apps", "url": "https://nostrapps.com/", "note": "Directory of Nostr-based applications." }
+      { "name": "Awesome Privacy (pluja)", "url": "https://github.com/pluja/awesome-privacy", "note": "The mega-list of privacy alternatives. Bookmark this." },
+      { "name": "Awesome Privacy (paulaime)", "url": "https://github.com/paulaime/awesome-privacy", "note": "Another massive curated list." },
+      { "name": "Awesome Privacy Directory", "url": "https://awesome-privacy.xyz/", "note": "Searchable privacy tool directory." },
+      { "name": "Privacy Guides", "url": "https://www.privacyguides.org/en/tools", "note": "Community-vetted, rigorously tested recommendations." },
+      { "name": "Nostr Apps", "url": "https://nostrapps.com/", "note": "Directory of everything built on Nostr." },
+      { "name": "Windows Privacy Toolkit", "url": "https://github.com/NX1X/Windows-Privacy-Toolkit", "note": "If you're stuck on Windows, at least harden it." }
     ],
     "articles": [
       { "name": "Freedom and Privacy", "url": "https://dergigi.com/2022/06/19/freedom-and-privacy/", "source": "dergigi.com" },
       { "name": "Privacy Is a Universal Right", "url": "https://mullvad.net/en/blog/2016/12/5/privacy-universal-right", "source": "Mullvad" },
       { "name": "Why Privacy Matters", "url": "https://mullvad.net/en/why-privacy-matters", "source": "Mullvad" },
-      { "name": "DNS Leaks", "url": "https://mullvad.net/en/help/dns-leaks", "source": "Mullvad" },
-      { "name": "Three Signals: More Privacy-Friendly Messaging App", "url": "https://mullvad.net/en/blog/2021/1/15/three-signals-more-privacy-friendly-messaging-app", "source": "Mullvad" },
-      { "name": "Using Encrypted Email", "url": "https://mullvad.net/en/help/using-encrypted-email", "source": "Mullvad" },
-      { "name": "Digital Stalker", "url": "https://mullvad.net/en/blog/digital-stalker", "source": "Mullvad" },
+      { "name": "DNS Leaks Explained", "url": "https://mullvad.net/en/help/dns-leaks", "source": "Mullvad" },
+      { "name": "Why Signal Is Better Than WhatsApp", "url": "https://mullvad.net/en/blog/2021/1/15/three-signals-more-privacy-friendly-messaging-app", "source": "Mullvad" },
+      { "name": "How to Use Encrypted Email", "url": "https://mullvad.net/en/help/using-encrypted-email", "source": "Mullvad" },
+      { "name": "The Digital Stalker Problem", "url": "https://mullvad.net/en/blog/digital-stalker", "source": "Mullvad" },
       { "name": "Basics of Encryption", "url": "https://mullvad.net/en/help/basics-encryption", "source": "Mullvad" },
-      { "name": "SIM Swap Attacks: Understanding the Threat", "url": "https://soundmoneysolutions.io/sim-swap-attacks-understanding-the-threat-and-protecting-yourself/", "source": "Sound Money Solutions" },
-      { "name": "How Not to Get Rugged: Security Tips for Self-Custody", "url": "https://soundmoneysolutions.io/how-not-to-get-rugged-essential-security-tips-for-self-custody/", "source": "Sound Money Solutions" }
+      { "name": "SIM Swap Attacks: How to Protect Yourself", "url": "https://soundmoneysolutions.io/sim-swap-attacks-understanding-the-threat-and-protecting-yourself/", "source": "Sound Money Solutions" },
+      { "name": "How Not to Get Rugged: Self-Custody Security", "url": "https://soundmoneysolutions.io/how-not-to-get-rugged-essential-security-tips-for-self-custody/", "source": "Sound Money Solutions" }
     ],
     "tools": [
-      { "name": "MaxMind — Locate My IP Address", "url": "https://www.maxmind.com/en/locate-my-ip-address", "note": "Check what your IP reveals about you." }
+      { "name": "Check Your IP — MaxMind", "url": "https://www.maxmind.com/en/locate-my-ip-address", "note": "See what your IP address reveals about you. Eye-opening." }
     ],
     "courses": [
-      { "name": "Open Source Applications: The Best Alternatives", "url": "https://planb.academy/en/courses/4ba0e3de-e67f-4ea1-a514-f111206810d1/open-source-applications-the-best-alternatives-9c0e056c-45ce-407c-b4b6-f648bbc1f7d5", "source": "Plan B Academy" },
+      { "name": "Open Source Apps: The Best Alternatives", "url": "https://planb.academy/en/courses/4ba0e3de-e67f-4ea1-a514-f111206810d1/open-source-applications-the-best-alternatives-9c0e056c-45ce-407c-b4b6-f648bbc1f7d5", "source": "Plan B Academy" },
       { "name": "Update Your Online Security", "url": "https://planb.academy/en/courses/update-your-online-security-99c46148-7080-4915-a7e0-9df0e145cd47", "source": "Plan B Academy" }
     ]
-  }
-}{
-  "meta": {
-    "version": "1.0.0",
-    "last_updated": "2025-08-05",
-    "license": "CC BY-SA 4.0"
   },
-  "categories": [
-    {
-      "id": "maps",
-      "label": "Maps",
-      "tagline": "",
-      "privacy_tools": [
-        {
-          "name": "OrganicMaps",
-          "url": "https://organicmaps.app",
-          "note": "Offline-first maps powered by OpenStreetMap. No tracking."
-        },
-        {
-          "name": "OsmAnd",
-          "url": "https://osmand.net",
-          "note": "Open-source offline maps, highly customizable."
-        }
-      ],
-      "mainstream_tools": ["Google Maps", "Apple Maps", "Waze"]
-    },
-    {
-      "id": "ai",
-      "label": "AI",
-      "tagline": "Locally-run or privacy-respecting AI",
-      "privacy_tools": [
-        {
-          "name": "Ollama",
-          "url": "https://ollama.com",
-          "note": "Run LLMs locally. Your data never leaves your device."
-        },
-        {
-          "name": "Proton Lumo",
-          "url": "https://proton.me/lumo",
-          "note": "Privacy-first AI assistant with zero-access encryption."
-        },
-        {
-          "name": "Brave Leo",
-          "url": "https://brave.com/leo",
-          "note": "AI built into the Brave browser, no account required."
-        }
-      ],
-      "mainstream_tools": ["ChatGPT", "Gemini", "Claude", "Copilot"]
-    },
-    {
-      "id": "browsing",
-      "label": "Browsing",
-      "tagline": "",
-      "privacy_tools": [
-        {
-          "name": "Brave",
-          "url": "https://brave.com",
-          "note": "Built-in ad/tracker blocking, Chromium-based."
-        },
-        {
-          "name": "Firefox",
-          "url": "https://mozilla.org/firefox",
-          "note": "Non-profit backed, highly customizable privacy settings."
-        },
-        {
-          "name": "DuckDuckGo",
-          "url": "https://duckduckgo.com",
-          "note": "Search engine that doesn't track you."
-        },
-        {
-          "name": "Brave Search",
-          "url": "https://search.brave.com",
-          "note": "Independent search index, no tracking."
-        }
-      ],
-      "mainstream_tools": ["Chrome", "Safari", "Google Search"]
-    },
-    {
-      "id": "vpn",
-      "label": "VPN",
-      "tagline": "Doesn't share data with third parties & ISPs",
-      "privacy_tools": [
-        {
-          "name": "ProtonVPN",
-          "url": "https://protonvpn.com",
-          "note": "Open-source apps, audited, based in Switzerland."
-        },
-        {
-          "name": "Mullvad",
-          "url": "https://mullvad.net",
-          "note": "No account/email required, cash payment option."
-        },
-        {
-          "name": "IVPN",
-          "url": "https://ivpn.net",
-          "note": "Independent audit, no-log policy, WireGuard support."
-        }
-      ],
-      "mainstream_tools": []
-    },
-    {
-      "id": "passwords",
-      "label": "Passwords & 2FA",
-      "tagline": "",
-      "privacy_tools": [
-        {
-          "name": "Bitwarden",
-          "url": "https://bitwarden.com",
-          "note": "Open-source password manager, free tier covers essentials."
-        },
-        {
-          "name": "Proton Pass",
-          "url": "https://proton.me/pass",
-          "note": "Encrypted password manager with email aliasing."
-        },
-        {
-          "name": "Proton Authenticator",
-          "url": "https://proton.me/authenticator",
-          "note": "Encrypted 2FA app with cloud sync."
-        }
-      ],
-      "mainstream_tools": ["Google Password Manager", "Google Authenticator"]
-    },
-    {
-      "id": "messaging",
-      "label": "Messaging & Mail",
-      "tagline": "",
-      "privacy_tools": [
-        {
-          "name": "Signal",
-          "url": "https://signal.org",
-          "note": "End-to-end encrypted messaging, open-source, non-profit."
-        },
-        {
-          "name": "SimpleX Chat",
-          "url": "https://simplex.chat",
-          "note": "No phone number, no user ID — maximum metadata protection."
-        },
-        {
-          "name": "Proton Mail",
-          "url": "https://proton.me/mail",
-          "note": "End-to-end encrypted email, zero-access architecture."
-        }
-      ],
-      "mainstream_tools": ["WhatsApp", "Gmail", "Yahoo Mail", "Outlook"]
-    },
-    {
-      "id": "socials",
-      "label": "Socials",
-      "tagline": "Own your data, be uncensorable.",
-      "privacy_tools": [
-        {
-          "name": "Primal",
-          "url": "https://primal.net",
-          "note": "Nostr-based social client."
-        },
-        {
-          "name": "Amethyst",
-          "url": "https://github.com/vitorpamplona/amethyst",
-          "note": "Open-source Nostr client for Android."
-        },
-        {
-          "name": "YakiHonne",
-          "url": "https://yakihonne.com",
-          "note": "Nostr-based content platform."
-        }
-      ],
-      "mainstream_tools": ["Facebook", "Twitter / X", "Instagram", "Reddit"]
-    },
-    {
-      "id": "collab",
-      "label": "Collaborative Work",
-      "tagline": "",
-      "privacy_tools": [
-        {
-          "name": "Proton Drive",
-          "url": "https://proton.me/drive",
-          "note": "Encrypted cloud storage with document collaboration."
-        },
-        {
-          "name": "Proton Docs",
-          "url": "https://docs.proton.me",
-          "note": "End-to-end encrypted document editor."
-        },
-        {
-          "name": "Proton Sheets",
-          "url": "https://sheets.proton.me",
-          "note": "End-to-end encrypted spreadsheets."
-        },
-        {
-          "name": "AnyType",
-          "url": "https://anytype.io",
-          "note": "Local-first, encrypted workspace."
-        },
-        {
-          "name": "Jitsi Meet",
-          "url": "https://jitsi.org",
-          "note": "Open-source video conferencing, self-hostable."
-        },
-        {
-          "name": "Proton Meet",
-          "url": "https://proton.me/meet",
-          "note": "End-to-end encrypted video calls."
-        }
-      ],
-      "mainstream_tools": ["Google Workspace", "Slack", "Notion", "Google Meet", "Zoom"]
-    }
+  "stats": [
+    { "label": "Data brokers selling your info", "value": "$250B+", "caption": "Global industry size (2025 est.)" },
+    { "label": "Average trackers per news site", "value": "40+", "caption": "On a typical media site" },
+    { "label": "People who read privacy policies", "value": "<1%", "caption": "Nobody reads the fine print" },
+    { "label": "Your data, your call", "value": "100%", "caption": "Of what you control when you swap" }
   ]
 }
