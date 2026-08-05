@@ -16,7 +16,7 @@ A pocket-sized zine presenting mainstream services alongside privacy-focused alt
 ## Quick Links
 
 - 📥 [Download latest PDF](dist/privacy-zine-v1.0.0-en.pdf)
-- 🌐 [Visit the web version](https://YOUR_USERNAME.github.io/privacy-zine)
+- 🌐 [Visit the web version](https://cyphermonk21.github.io/privacy-zine)
 - ✏️ [Edit in Penpot](src/penpot/) (import the `.penpot` file at [penpot.app](https://design.penpot.app))
 - 🌍 [Translations](translations/)
 - 🖨️ [Print guidelines](docs/PRINT_GUIDELINES.md)
