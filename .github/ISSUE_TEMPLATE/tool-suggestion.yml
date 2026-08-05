@@ -1,0 +1,44 @@
+name: Tool Suggestion
+description: Suggest a privacy-respecting tool to add to the zine
+labels: ["tool-suggestion"]
+body:
+  - type: input
+    id: tool-name
+    attributes:
+      label: Tool Name
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Maps
+        - AI
+        - Browsing
+        - VPN
+        - Passwords / 2FA
+        - Messaging & Mail
+        - Socials
+        - Collaborative Work
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Website / Source URL
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Why should this be added?
+      description: Briefly explain how it respects privacy. Is it open-source? Does it sell data?
+    validations:
+      required: true
+  - type: textarea
+    id: replaces
+    attributes:
+      label: What mainstream tool does it replace?
+    validations:
+      required: false
