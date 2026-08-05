@@ -1,5 +1,533 @@
 {
   "meta": {
+    "version": "1.1.0",
+    "last_updated": "2026-08-05",
+    "license": "CC BY-SA 4.0"
+  },
+  "intro": {
+    "questions": [
+      { "heading": "What is digital privacy?", "points": ["", "", ""] },
+      { "heading": "Why should you care?", "points": ["", "", ""] }
+    ],
+    "encryption_note": "Something about encryption? — TODO: brief explainer on E2E encryption, what it means, and why it matters."
+  },
+  "categories": [
+    {
+      "id": "browsing-vpn",
+      "label": "Browsing / VPN",
+      "tagline": "Control what others can see and where you go.",
+      "groups": [
+        {
+          "id": "browsers",
+          "tools": [
+            {
+              "name": "Brave",
+              "url": "https://brave.com/",
+              "note": "Built-in ad/tracker blocking. Chromium-based."
+            },
+            {
+              "name": "Firefox",
+              "url": "https://www.mozilla.org/firefox/",
+              "note": "Non-profit backed. Highly customizable privacy settings."
+            }
+          ],
+          "replaces": ["Chrome"]
+        },
+        {
+          "id": "search-engines",
+          "tools": [
+            {
+              "name": "DuckDuckGo",
+              "url": "https://duckduckgo.com/",
+              "note": "Search without being tracked."
+            },
+            {
+              "name": "Brave Search",
+              "url": "https://search.brave.com/",
+              "note": "Independent search index. No tracking."
+            }
+          ],
+          "replaces": ["Google Search"]
+        },
+        {
+          "id": "vpn",
+          "tools": [
+            {
+              "name": "ProtonVPN",
+              "url": "https://protonvpn.com/",
+              "note": "Open-source apps, audited, based in Switzerland."
+            },
+            {
+              "name": "Mullvad",
+              "url": "https://mullvad.net/",
+              "note": "No account/email required. Cash payment option."
+            },
+            {
+              "name": "IVPN",
+              "url": "https://www.ivpn.net/en/",
+              "note": "Independent audit, no-log policy, WireGuard support."
+            }
+          ],
+          "replaces": ["Other free VPNs"],
+          "use_case": "Public Wi-Fi safety, bypass blocked servers, prevent ISPs & third parties from seeing your browsing data & location."
+        }
+      ]
+    },
+    {
+      "id": "messaging-mail-socials",
+      "label": "Messaging / Mail / Socials",
+      "tagline": "Communicate without surveillance.",
+      "groups": [
+        {
+          "id": "messaging",
+          "tools": [
+            {
+              "name": "Signal Messenger",
+              "url": "https://signal.org/",
+              "note": "Truly end-to-end encrypted chat. Open-source, non-profit."
+            },
+            {
+              "name": "BitChat",
+              "url": "https://bitchat.free/",
+              "note": "Bluetooth-mesh based messaging. Anonymous chat even without internet."
+            }
+          ],
+          "replaces": ["WhatsApp"]
+        },
+        {
+          "id": "email",
+          "tools": [
+            {
+              "name": "Proton Mail",
+              "url": "https://mail.proton.me/",
+              "note": "End-to-end encrypted email with zero-access architecture."
+            }
+          ],
+          "replaces": ["Gmail", "Yahoo Mail", "Outlook"]
+        },
+        {
+          "id": "socials",
+          "tools": [
+            {
+              "name": "Nostr — Primal",
+              "url": "https://primal.net/",
+              "note": "Nostr-based social client."
+            },
+            {
+              "name": "Nostr — Amethyst",
+              "url": "https://amethyst.social/",
+              "note": "Open-source Nostr client for Android."
+            },
+            {
+              "name": "Nostr — YakiHonne",
+              "url": "https://yakihonne.com/",
+              "note": "Nostr-based content platform."
+            }
+          ],
+          "replaces": ["Twitter / X", "Facebook", "Reddit", "Instagram"],
+          "use_case": "Own your data & social graph across platforms. Be uncensorable."
+        },
+        {
+          "id": "video-calls",
+          "tools": [
+            {
+              "name": "Jitsi Meet",
+              "url": "https://meet.jit.si/",
+              "note": "Secure, high quality meetings without any account."
+            },
+            {
+              "name": "Proton Meet",
+              "url": "https://proton.me/meet",
+              "note": "End-to-end encrypted video calls."
+            }
+          ],
+          "replaces": ["Google Meet", "Zoom"]
+        }
+      ]
+    },
+    {
+      "id": "collaboration-sharing",
+      "label": "Collaboration / Sharing",
+      "tagline": "Work together without giving up your data.",
+      "groups": [
+        {
+          "id": "cloud-docs",
+          "tools": [
+            {
+              "name": "Proton Drive",
+              "url": "https://proton.me/drive",
+              "note": "Encrypted cloud storage with document collaboration."
+            },
+            {
+              "name": "Proton Docs",
+              "url": "https://docs.proton.me/",
+              "note": "End-to-end encrypted document editor."
+            },
+            {
+              "name": "Proton Sheets",
+              "url": "https://sheets.proton.me/",
+              "note": "End-to-end encrypted spreadsheets."
+            },
+            {
+              "name": "CryptPad",
+              "url": "https://cryptpad.fr/",
+              "note": "Fully encrypted collaboration suite."
+            }
+          ],
+          "replaces": ["Google Workspace"]
+        },
+        {
+          "id": "team-comms",
+          "tools": [
+            {
+              "name": "Buzz",
+              "url": "https://buzz.xyz/",
+              "note": "Can be self-hosted. Also runs AI agents."
+            }
+          ],
+          "replaces": ["Slack", "Discord"]
+        },
+        {
+          "id": "notes-pm",
+          "tools": [
+            {
+              "name": "AnyType",
+              "url": "https://anytype.io/",
+              "note": "Privately collaborate on project management and notes. Local-first."
+            }
+          ],
+          "replaces": ["Notion", "Apple Notes"]
+        },
+        {
+          "id": "forms",
+          "tools": [
+            {
+              "name": "Formstr",
+              "url": "https://formstr.app/",
+              "note": "Nostr-based alternative to Google Forms."
+            }
+          ],
+          "replaces": ["Google Forms"]
+        },
+        {
+          "id": "photos",
+          "tools": [
+            {
+              "name": "Ente Photos",
+              "url": "https://ente.com/",
+              "note": "End-to-end encrypted photo storage. Open-source."
+            }
+          ],
+          "replaces": ["Google Photos"]
+        },
+        {
+          "id": "video-platform",
+          "tools": [
+            {
+              "name": "Rumble",
+              "url": "https://rumble.com/",
+              "note": "Share and stream video with fewer restrictions."
+            }
+          ],
+          "replaces": ["YouTube"]
+        }
+      ]
+    },
+    {
+      "id": "ai-intelligence",
+      "label": "AI / Intelligence",
+      "tagline": "Private AI that doesn't train on your data.",
+      "groups": [
+        {
+          "id": "private-ai",
+          "tools": [
+            {
+              "name": "Maple",
+              "url": "https://trymaple.ai/",
+              "note": "Private AI chat."
+            },
+            {
+              "name": "Venice",
+              "url": "https://venice.ai/",
+              "note": "Private, decentralized AI."
+            },
+            {
+              "name": "Brave Leo",
+              "url": "https://search.brave.com/ask",
+              "note": "AI built into Brave browser. No account required."
+            },
+            {
+              "name": "Proton Lumo",
+              "url": "https://proton.me/lumo",
+              "note": "Privacy-first AI assistant with zero-access encryption."
+            }
+          ],
+          "replaces": ["ChatGPT", "Gemini", "Claude", "Copilot"]
+        },
+        {
+          "id": "local-ai",
+          "tools": [
+            {
+              "name": "Ollama",
+              "url": "https://ollama.com/",
+              "note": "Run LLMs locally. Your data never leaves your device."
+            },
+            {
+              "name": "Goose",
+              "url": "https://goose-docs.ai/docs/quickstart",
+              "note": "Local AI agent framework."
+            },
+            {
+              "name": "OpenRouter",
+              "url": "https://openrouter.ai/",
+              "note": "Route queries to multiple models."
+            },
+            {
+              "name": "Odysseus",
+              "url": "https://odysseusai.dev/",
+              "note": "Local AI for data-sensitive queries."
+            }
+          ],
+          "replaces": ["Cloud-only AI APIs"],
+          "use_case": "Run data-sensitive queries using any open-source model of your choice."
+        },
+        {
+          "id": "voice-ai",
+          "tools": [
+            {
+              "name": "FluidVoice",
+              "url": "https://macparakeet.com/",
+              "note": "Local, private speech-to-text."
+            },
+            {
+              "name": "MacParakeet",
+              "url": "https://macparakeet.com/",
+              "note": "On-device transcription for macOS."
+            }
+          ],
+          "replaces": ["ElevenLabs", "OpenAI Whisper (cloud)"]
+        }
+      ]
+    },
+    {
+      "id": "operating-systems",
+      "label": "Operating Systems",
+      "tagline": "The foundation starts at the OS level.",
+      "groups": [
+        {
+          "id": "desktop-os",
+          "tools": [
+            {
+              "name": "Ubuntu",
+              "url": "https://ubuntu.com/",
+              "note": "Open-source. Beginner-friendly Linux distribution."
+            },
+            {
+              "name": "Linux Mint",
+              "url": "https://linuxmint.com/",
+              "note": "Open-source. Familiar interface for Windows switchers."
+            },
+            {
+              "name": "Tails",
+              "url": "https://tails.net/",
+              "note": "Amnesic incognito live system. Leaves no trace."
+            }
+          ],
+          "replaces": ["Windows", "macOS"]
+        },
+        {
+          "id": "mobile-os",
+          "tools": [
+            {
+              "name": "GrapheneOS",
+              "url": "https://grapheneos.org/",
+              "note": "Security-hardened Android ROM. De-Googled."
+            },
+            {
+              "name": "CalyxOS",
+              "url": "https://calyxos.org/",
+              "note": "Privacy-focused Android ROM with built-in tooling."
+            }
+          ],
+          "replaces": ["Stock Android", "iOS"]
+        }
+      ]
+    },
+    {
+      "id": "passwords-2fa",
+      "label": "Password Manager / 2FA",
+      "tagline": "Your keys, your control.",
+      "groups": [
+        {
+          "id": "password-managers",
+          "tools": [
+            {
+              "name": "Bitwarden",
+              "url": "https://bitwarden.com/",
+              "note": "Open-source password manager. Free tier covers essentials."
+            },
+            {
+              "name": "Proton Pass",
+              "url": "https://proton.me/pass",
+              "note": "Encrypted password manager with email aliasing."
+            }
+          ],
+          "replaces": ["Chrome Password Manager"]
+        },
+        {
+          "id": "authenticators",
+          "tools": [
+            {
+              "name": "Proton Authenticator",
+              "url": "https://proton.me/authenticator",
+              "note": "Encrypted 2FA app with cloud sync."
+            },
+            {
+              "name": "Ente Authenticator",
+              "url": "https://ente.com/auth/",
+              "note": "Open-source 2FA with encrypted backup."
+            }
+          ],
+          "replaces": ["Google Authenticator"]
+        }
+      ]
+    },
+    {
+      "id": "maps",
+      "label": "Maps",
+      "tagline": "Navigate without being navigated.",
+      "groups": [
+        {
+          "id": "map-tools",
+          "tools": [
+            {
+              "name": "OrganicMaps",
+              "url": "https://organicmaps.app/",
+              "note": "Offline-first maps powered by OpenStreetMap. No tracking."
+            },
+            {
+              "name": "OsmAnd",
+              "url": "https://osmand.net/",
+              "note": "Open-source offline maps. Highly customizable."
+            },
+            {
+              "name": "OpenStreetMap",
+              "url": "https://www.openstreetmap.org",
+              "note": "Community-driven map data. The backbone behind many privacy maps."
+            }
+          ],
+          "replaces": ["Google Maps", "Apple Maps", "Waze"]
+        }
+      ]
+    },
+    {
+      "id": "money",
+      "label": "Money",
+      "tagline": "Financial sovereignty tools.",
+      "groups": [
+        {
+          "id": "virtual-cards",
+          "tools": [
+            {
+              "name": "2Fiat",
+              "url": "https://2fiat.com/",
+              "note": "Virtual debit cards."
+            }
+          ],
+          "replaces": ["Traditional bank cards for online purchases"]
+        },
+        {
+          "id": "exchange",
+          "tools": [
+            {
+              "name": "FixedFloat",
+              "url": "https://ff.io/",
+              "note": "P2P non-KYC exchange."
+            }
+          ],
+          "replaces": ["KYC-required centralized exchanges"]
+        }
+      ]
+    },
+    {
+      "id": "extras",
+      "label": "Extras",
+      "tagline": "Bonus tools for the privacy-curious.",
+      "groups": [
+        {
+          "id": "extras-list",
+          "tools": [
+            {
+              "name": "Excalidraw",
+              "url": "https://excalidraw.com/",
+              "note": "Open-source whiteboarding."
+            },
+            {
+              "name": "SilentLink",
+              "url": "https://silent.link/",
+              "note": "E-SIMs / borderless mobile internet."
+            },
+            {
+              "name": "SMS4Sats",
+              "url": "https://sms4sats.com/",
+              "note": "Send/receive SMS privately."
+            },
+            {
+              "name": "Hermes Agent",
+              "url": "https://hermes-agent.nousresearch.com/",
+              "note": "AI agent for autonomous tasks."
+            },
+            {
+              "name": "Citadel Chat",
+              "url": "https://citadel.chat/",
+              "note": "Offline off-grid knowledgebase & AI."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "reading_list": [
+    { "title": "1984", "author": "George Orwell" },
+    { "title": "Cypherpunks: Freedom and the Future of the Internet", "author": "Julian Assange & Jacob Appelbaum" },
+    { "title": "Permanent Record", "author": "Edward Snowden" },
+    { "title": "Resistance Money", "author": "Andrew M. Bailey, Bradley Rettler, Craig Warmke" },
+    { "title": "The Internet of Money (Vol 1, 2, 3)", "author": "Andreas Antonopoulos" },
+    { "title": "The Code Book", "author": "Simon Singh" },
+    { "title": "The Machinery of Freedom: Guide to a Radical Capitalism", "author": "David D. Friedman" },
+    { "title": "The Sovereign Individual", "author": "James Dale Davidson, William Rees-Mogg" },
+    { "title": "What Has Government Done To Our Money", "author": "Murray Rothbard" },
+    { "title": "When Money Dies", "author": "Adam Fergusson" }
+  ],
+  "resources": {
+    "curated_lists": [
+      { "name": "Windows Privacy Toolkit", "url": "https://github.com/NX1X/Windows-Privacy-Toolkit", "note": "GitHub repo for hardening Windows." },
+      { "name": "Awesome Privacy (paulaime)", "url": "https://github.com/paulaime/awesome-privacy", "note": "Curated list of privacy tools." },
+      { "name": "Awesome Privacy", "url": "https://awesome-privacy.xyz/", "note": "Privacy resource directory." },
+      { "name": "Nostr Apps", "url": "https://nostrapps.com/", "note": "Directory of Nostr-based applications." }
+    ],
+    "articles": [
+      { "name": "Freedom and Privacy", "url": "https://dergigi.com/2022/06/19/freedom-and-privacy/", "source": "dergigi.com" },
+      { "name": "Privacy Is a Universal Right", "url": "https://mullvad.net/en/blog/2016/12/5/privacy-universal-right", "source": "Mullvad" },
+      { "name": "Why Privacy Matters", "url": "https://mullvad.net/en/why-privacy-matters", "source": "Mullvad" },
+      { "name": "DNS Leaks", "url": "https://mullvad.net/en/help/dns-leaks", "source": "Mullvad" },
+      { "name": "Three Signals: More Privacy-Friendly Messaging App", "url": "https://mullvad.net/en/blog/2021/1/15/three-signals-more-privacy-friendly-messaging-app", "source": "Mullvad" },
+      { "name": "Using Encrypted Email", "url": "https://mullvad.net/en/help/using-encrypted-email", "source": "Mullvad" },
+      { "name": "Digital Stalker", "url": "https://mullvad.net/en/blog/digital-stalker", "source": "Mullvad" },
+      { "name": "Basics of Encryption", "url": "https://mullvad.net/en/help/basics-encryption", "source": "Mullvad" },
+      { "name": "SIM Swap Attacks: Understanding the Threat", "url": "https://soundmoneysolutions.io/sim-swap-attacks-understanding-the-threat-and-protecting-yourself/", "source": "Sound Money Solutions" },
+      { "name": "How Not to Get Rugged: Security Tips for Self-Custody", "url": "https://soundmoneysolutions.io/how-not-to-get-rugged-essential-security-tips-for-self-custody/", "source": "Sound Money Solutions" }
+    ],
+    "tools": [
+      { "name": "MaxMind — Locate My IP Address", "url": "https://www.maxmind.com/en/locate-my-ip-address", "note": "Check what your IP reveals about you." }
+    ],
+    "courses": [
+      { "name": "Open Source Applications: The Best Alternatives", "url": "https://planb.academy/en/courses/4ba0e3de-e67f-4ea1-a514-f111206810d1/open-source-applications-the-best-alternatives-9c0e056c-45ce-407c-b4b6-f648bbc1f7d5", "source": "Plan B Academy" },
+      { "name": "Update Your Online Security", "url": "https://planb.academy/en/courses/update-your-online-security-99c46148-7080-4915-a7e0-9df0e145cd47", "source": "Plan B Academy" }
+    ]
+  }
+}{
+  "meta": {
     "version": "1.0.0",
     "last_updated": "2025-08-05",
     "license": "CC BY-SA 4.0"
