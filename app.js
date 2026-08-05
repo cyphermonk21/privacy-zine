@@ -31,43 +31,11 @@ function initStats(data) {
   
   statsEl.innerHTML = data.stats.map(s => `
     <div class="stat-card">
-      <span class="stat-value" data-target="${s.value.replace(/[^0-9.]/g, '')}">${s.value}</span>
+      <span class="stat-value">${s.value}</span>
       <span class="stat-label">${s.label}</span>
       <span class="stat-caption">${s.caption}</span>
     </div>
   `).join('');
-  
-  // Animate counters when in view
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounters();
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  
-  observer.observe(statsEl);
-}
-
-function animateCounters() {
-  const counters = document.querySelectorAll('.stat-value[data-target]');
-  counters.forEach(counter => {
-    const target = parseFloat(counter.dataset.target);
-    if (!isNaN(target)) {
-      let current = 0;
-      const increment = target / 50;
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-          counter.textContent = counter.dataset.originalValue || counter.textContent;
-          clearInterval(timer);
-        } else {
-          counter.textContent = Math.floor(current).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-        }
-      }, 30);
-    }
-  });
 }
 
 // ===== Intro Questions =====
