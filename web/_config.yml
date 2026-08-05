@@ -3,7 +3,7 @@ description: Privacy-respecting alternatives to everyday tools
 remote_theme: pages-themes/primer@v0.2.0
 plugins:
 - jekyll-remote-theme
-url: "https://YOUR_USERNAME.github.io"
+url: "https://cyphermonk21.github.io"
 baseurl: "/privacy-zine"
 exclude:
   - src/
