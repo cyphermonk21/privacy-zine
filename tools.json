@@ -403,7 +403,7 @@
       "label": "Operating Systems",
       "emoji": "🖥️",
       "tagline": "The deepest layer of control. Start here if you're serious.",
-      "difficulty": "advanced",
+      "difficulty": "hard",
       "groups": [
         {
           "id": "desktop-os",
