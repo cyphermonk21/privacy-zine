@@ -1,11 +1,18 @@
 // ===== Fetch Data =====
 fetch('tools.json')
-  .then(r => {
-    if (!r.ok) throw new Error('Failed to load tools.json');
-    return r.json();
+  .then(response => {
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return response.json();
   })
-  .then(data => initializePage(data))
-  .catch(err => showError(err));
+  .then(data => {
+    initializePage(data);
+  })
+  .catch(err => {
+    console.error('Failed to load tools.json:', err);
+    showError(err);
+  });
 
 function initializePage(data) {
   initHero(data);
@@ -16,7 +23,9 @@ function initializePage(data) {
   initCategories(data);
   initReadingList(data);
   initResources(data);
+  initBackToTop();
 }
+
 // ===== Hero Section =====
 function initHero(data) {
   const heroSubhead = document.getElementById('hero-subhead');
@@ -28,32 +37,34 @@ function initHero(data) {
 // ===== Stats =====
 function initStats(data) {
   const statsEl = document.getElementById('stats-strip');
-  if (!data.stats) return;
+  if (!statsEl || !data.stats) return;
   
-  statsEl.innerHTML = data.stats.map(s => `
+  statsEl.innerHTML = data.stats.map(stat => `
     <div class="stat-card">
-      <span class="stat-value">${s.value}</span>
-      <span class="stat-label">${s.label}</span>
-      <span class="stat-caption">${s.caption}</span>
+      <span class="stat-value">${stat.value}</span>
+      <span class="stat-label">${stat.label}</span>
+      <span class="stat-caption">${stat.caption || ''}</span>
     </div>
   `).join('');
 }
 
-// ===== Intro =====
+// ===== Intro Questions =====
 function initIntro(data) {
   const introEl = document.getElementById('intro');
-  if (!data.intro?.questions) return;
+  if (!introEl || !data.intro?.questions) return;
   
-  introEl.innerHTML = data.intro.questions.map(q => {
-    const points = q.points.map(p => `<li>${p}</li>`).join('');
-    return `<div class="intro-block">
-      <h2>→ ${q.heading}</h2>
-      <ul>${points}</ul>
-    </div>`;
+  introEl.innerHTML = data.intro.questions.map(question => {
+    const points = question.points.map(point => `<li>${point}</li>`).join('');
+    return `
+      <div class="intro-block">
+        <h2>→ ${question.heading}</h2>
+        <ul>${points}</ul>
+      </div>
+    `;
   }).join('');
 }
 
-// ===== Encryption =====
+// ===== Encryption Callout =====
 function initEncryption(data) {
   const encEl = document.getElementById('encryption');
   if (!encEl || !data.intro?.encryption_blurb) return;
@@ -64,74 +75,86 @@ function initEncryption(data) {
     encEl.classList.remove('hidden');
   }
 }
-// ===== Filters =====
+
+// ===== Difficulty Filters =====
 function initFilters() {
-  document.getElementById('filter-bar').classList.remove('hidden');
+  const filterBar = document.getElementById('filter-bar');
+  if (!filterBar) return;
   
-  document.querySelectorAll('.filter-btn').forEach(btn => {
+  filterBar.classList.remove('hidden');
+  
+  const buttons = filterBar.querySelectorAll('.filter-btn');
+  buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      // Remove active from all buttons
+      buttons.forEach(b => b.classList.remove('active'));
+      // Add active to clicked button
       btn.classList.add('active');
-      const filter = btn.dataset.filter;
       
-      document.querySelectorAll('.category').forEach(cat => {
+      const filter = btn.dataset.filter;
+      const categories = document.querySelectorAll('.category');
+      
+      categories.forEach(cat => {
         if (filter === 'all' || cat.dataset.difficulty === filter) {
           cat.style.display = '';
-          cat.classList.add('fade-in');
-          setTimeout(() => cat.classList.remove('fade-in'), 400);
+          setTimeout(() => cat.classList.add('fade-in'), 10);
         } else {
           cat.style.display = 'none';
+          cat.classList.remove('fade-in');
         }
       });
     });
   });
 }
 
-// ===== Categories =====
+// ===== Tool Categories =====
 function initCategories(data) {
   const catEl = document.getElementById('categories');
+  if (!catEl || !data.categories) return;
   
   data.categories.forEach((cat, index) => {
-    const groupsHtml = cat.groups.map(g => {
-      const tools = g.tools.map(t =>
-        `<li>
-          <a href="${t.url}" target="_blank" rel="noopener noreferrer">
-            <strong>${t.name}</strong>
+    const groupsHtml = cat.groups.map(group => {
+      const toolsHtml = group.tools.map(tool => `
+        <li>
+          <a href="${tool.url}" target="_blank" rel="noopener noreferrer">
+            <strong>${tool.name}</strong>
           </a>
-          <span>${t.note || ''}</span>
-        </li>`
-      ).join('');
+          <span>${tool.note || ''}</span>
+        </li>
+      `).join('');
       
-      const replaces = g.replaces?.length
-        ? `<p class="replaces">↪ Replaces: ${g.replaces.join(', ')}</p>`
+      const replacesHtml = group.replaces?.length
+        ? `<p class="replaces">↪ Replaces: ${group.replaces.join(', ')}</p>`
         : '';
       
-      const useCase = g.use_case
-        ? `<p class="use-case">💡 ${g.use_case}</p>`
+      const useCaseHtml = group.use_case
+        ? `<p class="use-case">💡 ${group.use_case}</p>`
         : '';
       
-      const quickWin = g.quick_win
-        ? `<p class="quick-win">✅ <strong>Quick win:</strong> ${g.quick_win}</p>`
+      const quickWinHtml = group.quick_win
+        ? `<p class="quick-win">✅ <strong>Quick win:</strong> ${group.quick_win}</p>`
         : '';
       
-      const groupLabel = g.label ? `<h3 class="group-label">// ${g.label}</h3>` : '';
+      const groupLabel = group.label ? `<h3 class="group-label">// ${group.label}</h3>` : '';
       
-      return `<div class="tool-group">${groupLabel}${replaces}${useCase}${quickWin}<ul class="tools">${tools}</ul></div>`;
+      return `
+        <div class="tool-group">
+          ${groupLabel}
+          ${replacesHtml}
+          ${useCaseHtml}
+          ${quickWinHtml}
+          <ul class="tools">${toolsHtml}</ul>
+        </div>
+      `;
     }).join('');
     
     const section = document.createElement('section');
     section.className = 'category fade-in';
     section.style.animationDelay = `${index * 0.05}s`;
     
-    const difficultyMap = {
-      'easy': 'easy',
-      'medium': 'medium',
-      'hard': 'hard',
-      'varies': 'varies'
-    };
-    section.dataset.difficulty = difficultyMap[cat.difficulty?.toLowerCase()] || 'easy';
-    
-    section.id = cat.id;
+    const difficulty = (cat.difficulty || 'easy').toLowerCase();
+    section.dataset.difficulty = difficulty;
+    section.id = cat.id || '';
     
     section.innerHTML = `
       <div class="cat-header">
@@ -140,7 +163,7 @@ function initCategories(data) {
           <h2>${cat.label}</h2>
           <p class="cat-tagline">${cat.tagline || ''}</p>
         </div>
-        <span class="difficulty-badge diff-${cat.difficulty?.toLowerCase() || 'easy'}">${cat.difficulty || 'easy'}</span>
+        <span class="difficulty-badge diff-${difficulty}">${cat.difficulty || 'easy'}</span>
       </div>
       ${groupsHtml}
     `;
@@ -157,13 +180,13 @@ function initReadingList(data) {
   const bookList = readEl.querySelector('.book-list');
   if (!bookList) return;
   
-  const books = data.reading_list.map(b => `
+  const books = data.reading_list.map(book => `
     <li>
       <div class="book-info">
-        <span class="book-title">${b.title}</span>
-        <span class="book-author">${b.author}</span>
+        <span class="book-title">${book.title}</span>
+        <span class="book-author">${book.author || ''}</span>
       </div>
-      ${b.why ? `<span class="book-why">${b.why}</span>` : ''}
+      ${book.why ? `<span class="book-why">${book.why}</span>` : ''}
     </li>
   `).join('');
   
@@ -188,12 +211,19 @@ function initResources(data) {
     { key: 'courses', title: '// COURSES' }
   ];
   
-  sections.forEach(sec => {
-    const items = data.resources[sec.key];
+  sections.forEach(section => {
+    const items = data.resources[section.key];
     if (items?.length) {
-      html += `<h3>${sec.title}</h3><ul class="resource-list">`;
-      items.forEach(r => {
-        html += `<li><a href="${r.url}" target="_blank" rel="noopener noreferrer"><strong>${r.name}</strong></a><span>${r.note || r.source || ''}</span></li>`;
+      html += `<h3>${section.title}</h3><ul class="resource-list">`;
+      items.forEach(item => {
+        html += `
+          <li>
+            <a href="${item.url}" target="_blank" rel="noopener noreferrer">
+              <strong>${item.name}</strong>
+            </a>
+            <span>${item.note || item.source || ''}</span>
+          </li>
+        `;
       });
       html += '</ul>';
     }
@@ -203,249 +233,10 @@ function initResources(data) {
   resEl.classList.remove('hidden');
 }
 
-// ===== Back to Top =====
-function initBackToTop() {
-  const backToTopBtn = document.getElementById('backToTop');
-  
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
-    }
-  });
-  
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
-
-// ===== Error =====
-function showError(err) {
-  console.error('Full error:', err);
-  
-  let errorMsg = '⚠️ Failed to load tool data.';
-  
-  if (err instanceof SyntaxError) {
-    errorMsg = '⚠️ <code>tools.json</code> has a syntax error.';
-  } else if (err.message?.includes('Failed to fetch') || err instanceof TypeError) {
-    errorMsg = '⚠️ Could not find <code>tools.json</code>.';
-  }
-  
-  const categoriesEl = document.getElementById('categories');
-  categoriesEl.innerHTML = `
-    <div class="error">
-      ${errorMsg}<br>
-      <small>Check browser console (F12) for details.</small>
-    </div>
-  `;
-}// ===== Fetch Data =====
-fetch('tools.json')
-  .then(r => r.json())
-  .then(data => initializePage(data))
-  .catch(err => showError(err));
-
-function initializePage(data) {
-  initHero(data);
-  initStats(data);
-  initIntro(data);
-  initEncryption(data);
-  initFilters();
-  initCategories(data);
-  initReadingList(data);
-  initResources(data);
-  initBackToTop();
-}
-
-// ===== Hero Section =====
-function initHero(data) {
-  const heroSubhead = document.getElementById('hero-subhead');
-  if (heroSubhead && data.intro?.hero?.subhead) {
-    heroSubhead.textContent = data.intro.hero.subhead;
-  }
-}
-
-// ===== Stats Counter Animation =====
-function initStats(data) {
-  const statsEl = document.getElementById('stats-strip');
-  if (!data.stats) return;
-  
-  statsEl.innerHTML = data.stats.map(s => `
-    <div class="stat-card">
-      <span class="stat-value">${s.value}</span>
-      <span class="stat-label">${s.label}</span>
-      <span class="stat-caption">${s.caption}</span>
-    </div>
-  `).join('');
-}
-
-// ===== Intro Questions =====
-function initIntro(data) {
-  const introEl = document.getElementById('intro');
-  if (!data.intro?.questions) return;
-  
-  introEl.innerHTML = data.intro.questions.map(q => {
-    const points = q.points.map(p => `<li>${p}</li>`).join('');
-    return `<div class="intro-block">
-      <h2>${q.heading}</h2>
-      <ul>${points}</ul>
-    </div>`;
-  }).join('');
-}
-
-// ===== Encryption Callout =====
-function initEncryption(data) {
-  if (data.intro?.encryption_blurb) {
-    const encEl = document.getElementById('encryption');
-    encEl.querySelector('p').innerHTML = data.intro.encryption_blurb;
-    encEl.classList.remove('hidden');
-  }
-}
-
-// ===== Difficulty Filter - Fixed mapping =====
-function initFilters() {
-  document.getElementById('filter-bar').classList.remove('hidden');
-  
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      
-      document.querySelectorAll('.category').forEach(cat => {
-        if (filter === 'all' || cat.dataset.difficulty === filter) {
-          cat.style.display = '';
-          cat.classList.add('fade-in');
-          setTimeout(() => cat.classList.remove('fade-in'), 600);
-        } else {
-          cat.style.display = 'none';
-        }
-      });
-    });
-  });
-}
-
-// ===== Categories =====
-function initCategories(data) {
-  const catEl = document.getElementById('categories');
-  
-  data.categories.forEach((cat, index) => {
-    const groupsHtml = cat.groups.map(g => {
-      const tools = g.tools.map(t =>
-        `<li>
-          <a href="${t.url}" target="_blank" rel="noopener noreferrer">
-            <strong>${t.name}</strong>
-          </a>
-          <span>${t.note || ''}</span>
-        </li>`
-      ).join('');
-      
-      const replaces = g.replaces?.length
-        ? `<p class="replaces">↪ Replaces: ${g.replaces.join(', ')}</p>`
-        : '';
-      
-      const useCase = g.use_case
-        ? `<p class="use-case">💡 ${g.use_case}</p>`
-        : '';
-      
-      const quickWin = g.quick_win
-        ? `<p class="quick-win">✅ <strong>Quick win:</strong> ${g.quick_win}</p>`
-        : '';
-      
-      const groupLabel = g.label ? `<h3 class="group-label">${g.label}</h3>` : '';
-      
-      return `<div class="tool-group">${groupLabel}${replaces}${useCase}${quickWin}<ul class="tools">${tools}</ul></div>`;
-    }).join('');
-    
-    const section = document.createElement('section');
-    section.className = 'category fade-in';
-    section.style.animationDelay = `${index * 0.1}s`;
-    
-    // ✅ Fixed: Map to easy/medium/hard consistently
-    const difficultyMap = {
-      'easy': 'easy',
-      'medium': 'medium',
-      'hard': 'hard',
-      'varies': 'varies'
-    };
-    section.dataset.difficulty = difficultyMap[cat.difficulty?.toLowerCase()] || 'easy';
-    
-    section.id = cat.id;
-    
-    section.innerHTML = `
-      <div class="cat-header">
-        <span class="cat-emoji">${cat.emoji || '📍'}</span>
-        <div>
-          <h2>${cat.label}</h2>
-          <p class="cat-tagline">${cat.tagline || ''}</p>
-        </div>
-        <span class="difficulty-badge diff-${cat.difficulty?.toLowerCase() || 'easy'}">${cat.difficulty || 'easy'}</span>
-      </div>
-      ${groupsHtml}
-    `;
-    
-    catEl.appendChild(section);
-  });
-}
-
-// ===== Reading List =====
-function initReadingList(data) {
-  const readEl = document.getElementById('reading-list');
-  if (!data.reading_list?.length) return;
-  
-  readEl.classList.remove('hidden');
-  
-  const books = data.reading_list.map(b =>
-    `<li>
-      <div class="book-info">
-        <span class="book-title">${b.title}</span>
-        <span class="book-author">${b.author}</span>
-      </div>
-      ${b.why ? `<span class="book-why">${b.why}</span>` : ''}
-    </li>`
-  ).join('');
-  
-  readEl.innerHTML = `
-    <h2>📚 Want to go deeper?</h2>
-    <p class="section-subtitle">Books that shaped the privacy movement</p>
-    <ul class="book-list">${books}</ul>
-  `;
-}
-
-// ===== Resources =====
-function initResources(data) {
-  const resEl = document.getElementById('resources');
-  if (!data.resources) return;
-  
-  resEl.classList.remove('hidden');
-  
-  let html = '<h2>🔗 Level Up Your Privacy Game</h2>';
-  html += '<p class="section-subtitle">Curated resources from the community</p>';
-  
-  const sections = [
-    { key: 'curated_lists', title: '📑 Directories & Lists' },
-    { key: 'articles', title: '📖 Articles & Blog Posts' },
-    { key: 'tools', title: '🛠️ Utility Tools' },
-    { key: 'courses', title: '📚 Courses' }
-  ];
-  
-  sections.forEach(sec => {
-    const items = data.resources[sec.key];
-    if (items?.length) {
-      html += `<h3>${sec.title}</h3><ul class="resource-list">`;
-      items.forEach(r => {
-        html += `<li><a href="${r.url}" target="_blank" rel="noopener noreferrer"><strong>${r.name}</strong></a><span>${r.note || r.source || ''}</span></li>`;
-      });
-      html += '</ul>';
-    }
-  });
-  
-  resEl.innerHTML = html;
-}
-
 // ===== Back to Top Button =====
 function initBackToTop() {
   const backToTopBtn = document.getElementById('backToTop');
+  if (!backToTopBtn) return;
   
   window.addEventListener('scroll', () => {
     if (window.scrollY > 300) {
@@ -460,254 +251,27 @@ function initBackToTop() {
   });
 }
 
-// ===== Error Handling =====
+// ===== Error Handler =====
 function showError(err) {
-  console.error('Full error:', err);
+  console.error('[Privacy Toolkit] Error:', err);
   
-  let errorMsg = '⚠️ Failed to load tool data.';
-  
-  if (err instanceof SyntaxError) {
-    errorMsg = '⚠️ Your <code>tools.json</code> file has a syntax error.';
-  } else if (err.message?.includes('Failed to fetch') || err instanceof TypeError) {
-    errorMsg = '⚠️ Could not find <code>tools.json</code>.';
-  }
-  
+  // Only show error UI if we're sure the page is waiting for data
   const categoriesEl = document.getElementById('categories');
-  categoriesEl.innerHTML = `
-    <div class="error">
-      ${errorMsg}<br>
-      <small>Check browser console (F12) for details.</small>
-    </div>
-  `;
-}// ===== Fetch Data =====
-fetch('tools.json')
-  .then(r => r.json())
-  .then(data => initializePage(data))
- .catch(err => showError(err));
-
-function initializePage(data) {
-  initHero(data);
-  initStats(data);
-  initIntro(data);
-  initEncryption(data);
-  initFilters();
-  initCategories(data);
-  initReadingList(data);
-  initResources(data);
-  initBackToTop();
-}
-
-// ===== Hero Section =====
-function initHero(data) {
-  const heroSubhead = document.getElementById('hero-subhead');
-  if (heroSubhead && data.intro?.hero?.subhead) {
-    heroSubhead.textContent = data.intro.hero.subhead;
-  }
-}
-
-// ===== Stats Counter Animation =====
-function initStats(data) {
-  const statsEl = document.getElementById('stats-strip');
-  if (!data.stats) return;
+  if (!categoriesEl) return;
   
-  statsEl.innerHTML = data.stats.map(s => `
-    <div class="stat-card">
-      <span class="stat-value">${s.value}</span>
-      <span class="stat-label">${s.label}</span>
-      <span class="stat-caption">${s.caption}</span>
-    </div>
-  `).join('');
-}
-
-// ===== Intro Questions =====
-function initIntro(data) {
-  const introEl = document.getElementById('intro');
-  if (!data.intro?.questions) return;
-  
-  introEl.innerHTML = data.intro.questions.map(q => {
-    const points = q.points.map(p => `<li>${p}</li>`).join('');
-    return `<div class="intro-block">
-      <h2>${q.heading}</h2>
-      <ul>${points}</ul>
-    </div>`;
-  }).join('');
-}
-
-// ===== Encryption Callout =====
-function initEncryption(data) {
-  if (data.intro?.encryption_blurb) {
-    const encEl = document.getElementById('encryption');
-    encEl.querySelector('p').innerHTML = data.intro.encryption_blurb;
-    encEl.classList.remove('hidden');
-  }
-}
-
-// ===== Difficulty Filter =====
-function initFilters() {
-  document.getElementById('filter-bar').classList.remove('hidden');
-  
-  document.querySelectorAll('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filter = btn.dataset.filter;
-      
-      document.querySelectorAll('.category').forEach(cat => {
-        if (filter === 'all' || cat.dataset.difficulty === filter) {
-          cat.style.display = '';
-          cat.classList.add('fade-in');
-          setTimeout(() => cat.classList.remove('fade-in'), 600);
-        } else {
-          cat.style.display = 'none';
-        }
-      });
-    });
-  });
-}
-
-// ===== Categories =====
-function initCategories(data) {
-  const catEl = document.getElementById('categories');
-  
-  data.categories.forEach((cat, index) => {
-    const groupsHtml = cat.groups.map(g => {
-      const tools = g.tools.map(t =>
-        `<li>
-          <a href="${t.url}" target="_blank" rel="noopener noreferrer">
-            <strong>${t.name}</strong>
-          </a>
-          <span>${t.note || ''}</span>
-        </li>`
-      ).join('');
-      
-      const replaces = g.replaces?.length
-        ? `<p class="replaces">↪ Replaces: ${g.replaces.join(', ')}</p>`
-        : '';
-      
-      const useCase = g.use_case
-        ? `<p class="use-case">💡 ${g.use_case}</p>`
-        : '';
-      
-      const quickWin = g.quick_win
-        ? `<p class="quick-win">✅ <strong>Quick win:</strong> ${g.quick_win}</p>`
-        : '';
-      
-      const groupLabel = g.label ? `<h3 class="group-label">${g.label}</h3>` : '';
-      
-      return `<div class="tool-group">${groupLabel}${replaces}${useCase}${quickWin}<ul class="tools">${tools}</ul></div>`;
-    }).join('');
+  // If categories element is empty, show error
+  if (!categoriesEl.innerHTML.trim()) {
+    const errorMsg = err instanceof SyntaxError
+      ? '⚠️ Your <code>tools.json</code> file has a syntax error.'
+      : err.message?.includes('Failed to fetch')
+        ? '⚠️ Could not find <code>tools.json</code> in root folder.'
+        : '⚠️ Failed to load tool data.';
     
-    const section = document.createElement('section');
-    section.className = 'category fade-in';
-    section.style.animationDelay = `${index * 0.1}s`;
-    section.dataset.difficulty = cat.difficulty || 'easy';
-    section.id = cat.id;
-    
-    section.innerHTML = `
-      <div class="cat-header">
-        <span class="cat-emoji">${cat.emoji || '📍'}</span>
-        <div>
-          <h2>${cat.label}</h2>
-          <p class="cat-tagline">${cat.tagline || ''}</p>
-        </div>
-        <span class="difficulty-badge diff-${cat.difficulty || 'easy'}">${cat.difficulty || 'easy'}</span>
+    categoriesEl.insertAdjacentHTML('afterbegin', `
+      <div class="error">
+        ${errorMsg}<br>
+        <small>Check browser console (F12) for details.</small>
       </div>
-      ${groupsHtml}
-    `;
-    
-    catEl.appendChild(section);
-  });
-}
-
-// ===== Reading List =====
-function initReadingList(data) {
-  const readEl = document.getElementById('reading-list');
-  if (!data.reading_list?.length) return;
-  
-  readEl.classList.remove('hidden');
-  
-  const books = data.reading_list.map(b =>
-    `<li>
-      <div class="book-info">
-        <span class="book-title">${b.title}</span>
-        <span class="book-author">${b.author}</span>
-      </div>
-      ${b.why ? `<span class="book-why">${b.why}</span>` : ''}
-    </li>`
-  ).join('');
-  
-  readEl.innerHTML = `
-    <h2>📚 Want to go deeper?</h2>
-    <p class="section-subtitle">Books that shaped the privacy movement</p>
-    <ul class="book-list">${books}</ul>
-  `;
-}
-
-// ===== Resources =====
-function initResources(data) {
-  const resEl = document.getElementById('resources');
-  if (!data.resources) return;
-  
-  resEl.classList.remove('hidden');
-  
-  let html = '<h2>🔗 Level Up Your Privacy Game</h2>';
-  html += '<p class="section-subtitle">Curated resources from the community</p>';
-  
-  const sections = [
-    { key: 'curated_lists', title: '📑 Directories & Lists' },
-    { key: 'articles', title: '📖 Articles & Blog Posts' },
-    { key: 'tools', title: '🛠️ Utility Tools' },
-    { key: 'courses', title: '📚 Courses' }
-  ];
-  
-  sections.forEach(sec => {
-    const items = data.resources[sec.key];
-    if (items?.length) {
-      html += `<h3>${sec.title}</h3><ul class="resource-list">`;
-      items.forEach(r => {
-        html += `<li><a href="${r.url}" target="_blank" rel="noopener noreferrer"><strong>${r.name}</strong></a><span>${r.note || r.source || ''}</span></li>`;
-      });
-      html += '</ul>';
-    }
-  });
-  
-  resEl.innerHTML = html;
-}
-
-// ===== Back to Top Button =====
-function initBackToTop() {
-  const backToTopBtn = document.getElementById('backToTop');
-  
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-      backToTopBtn.classList.add('visible');
-    } else {
-      backToTopBtn.classList.remove('visible');
-    }
-  });
-  
-  backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
-
-// ===== Error Handling =====
-function showError(err) {
-  console.error('Full error:', err);
-  
-  let errorMsg = '⚠️ Failed to load tool data.';
-  
-  if (err instanceof SyntaxError) {
-    errorMsg = '⚠️ Your <code>tools.json</code> file has a syntax error. Check for trailing commas, missing commas, or unclosed brackets.';
-  } else if (err.message?.includes('Failed to fetch') || err instanceof TypeError) {
-    errorMsg = '⚠️ Could not find <code>tools.json</code>. Make sure it exists in the root folder.';
+    `);
   }
-  
-  const categoriesEl = document.getElementById('categories');
-  categoriesEl.innerHTML = `
-    <div class="error">
-      ${errorMsg}<br>
-      <small>Check browser console (F12) for details.</small>
-    </div>
-  `;
 }
