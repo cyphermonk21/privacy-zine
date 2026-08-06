@@ -1,6 +1,9 @@
 // ===== Fetch Data =====
 fetch('tools.json')
-  .then(r => r.json())
+  .then(r => {
+    if (!r.ok) throw new Error('Failed to load tools.json');
+    return r.json();
+  })
   .then(data => initializePage(data))
   .catch(err => showError(err));
 
@@ -13,9 +16,7 @@ function initializePage(data) {
   initCategories(data);
   initReadingList(data);
   initResources(data);
-  initBackToTop();
 }
-
 // ===== Hero Section =====
 function initHero(data) {
   const heroSubhead = document.getElementById('hero-subhead');
@@ -54,13 +55,15 @@ function initIntro(data) {
 
 // ===== Encryption =====
 function initEncryption(data) {
-  if (data.intro?.encryption_blurb) {
-    const encEl = document.getElementById('encryption');
-    encEl.querySelector('p').innerHTML = data.intro.encryption_blurb;
+  const encEl = document.getElementById('encryption');
+  if (!encEl || !data.intro?.encryption_blurb) return;
+  
+  const pEl = encEl.querySelector('p');
+  if (pEl) {
+    pEl.innerHTML = data.intro.encryption_blurb;
     encEl.classList.remove('hidden');
   }
 }
-
 // ===== Filters =====
 function initFilters() {
   document.getElementById('filter-bar').classList.remove('hidden');
@@ -149,36 +152,39 @@ function initCategories(data) {
 // ===== Reading List =====
 function initReadingList(data) {
   const readEl = document.getElementById('reading-list');
-  if (!data.reading_list?.length) return;
+  if (!readEl || !data.reading_list?.length) return;
   
-  readEl.classList.remove('hidden');
+  const bookList = readEl.querySelector('.book-list');
+  if (!bookList) return;
   
-  const books = data.reading_list.map(b =>
-    `<li>
+  const books = data.reading_list.map(b => `
+    <li>
       <div class="book-info">
         <span class="book-title">${b.title}</span>
         <span class="book-author">${b.author}</span>
       </div>
       ${b.why ? `<span class="book-why">${b.why}</span>` : ''}
-    </li>`
-  ).join('');
+    </li>
+  `).join('');
   
-  readEl.innerHTML += `<ul class="book-list">${books}</ul>`;
+  bookList.innerHTML = books;
+  readEl.classList.remove('hidden');
 }
 
 // ===== Resources =====
 function initResources(data) {
   const resEl = document.getElementById('resources');
-  if (!data.resources) return;
+  if (!resEl || !data.resources) return;
   
-  resEl.classList.remove('hidden');
+  const resourceContainer = resEl.querySelector('.resource-container');
+  if (!resourceContainer) return;
   
   let html = '';
   
   const sections = [
-    { key: 'curated_lists', title: '// DIRECTORIES & LISTS' },
-    { key: 'articles', title: '// ARTICLES & BLOG POSTS' },
-    { key: 'tools', title: '// UTILITY TOOLS' },
+    { key: 'curated_lists', title: '// DIRECTORIES' },
+    { key: 'articles', title: '// ARTICLES' },
+    { key: 'tools', title: '// TOOLS' },
     { key: 'courses', title: '// COURSES' }
   ];
   
@@ -193,7 +199,8 @@ function initResources(data) {
     }
   });
   
-  resEl.innerHTML += html;
+  resourceContainer.innerHTML = html;
+  resEl.classList.remove('hidden');
 }
 
 // ===== Back to Top =====
