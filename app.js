@@ -19,7 +19,7 @@ function initializePage(data) {
 // ===== Hero Section =====
 function initHero(data) {
   const heroSubhead = document.getElementById('hero-subhead');
-  if (data.intro?.hero?.subhead) {
+  if (heroSubhead && data.intro?.hero?.subhead) {
     heroSubhead.textContent = data.intro.hero.subhead;
   }
 }
