@@ -3,93 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Digital Privacy Pocket Toolkit - Your data is being harvested. Here's how to take it back.">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#000000">
-  <title>Digital Privacy Pocket Toolkit</title>
-  <link rel="stylesheet" href="./style.css">
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <meta name="description" content="Digital Privacy Pocket Toolkit">
+  <title>DIGITAL PRIVACY POCKET TOOLKIT</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <main class="container">
-    <!-- Header Section -->
-    <header class="header">
-      <div class="logo">
-        <span class="logo-bracket">[</span>
-        <h1>DIGITAL PRIVACY<br>POCKET TOOLKIT</h1>
-        <span class="logo-bracket">]</span>
+  <div class="wrapper">
+    <header class="masthead">
+      <div class="logo-box">
+        <span class="bracket">[</span>
+        <h1>DIGITAL PRIVACY</h1>
+        <h2>POCKET TOOLKIT</h2>
+        <span class="bracket">]</span>
       </div>
-      <div class="divider-horizontal">━━━━━━━━━━━━━━</div>
+      <hr class="rule">
     </header>
 
-    <!-- Tagline Section -->
-    <section class="tagline-section">
+    <section class="intro-hero">
       <p class="tagline">/// SCAN. SWAP. SHARE.</p>
-      <p class="tagline-sub">Your data is being harvested. Here's how to take it back.</p>
-      <div class="divider-vertical">│</div>
+      <p class="subhead">YOUR DATA IS BEING HARVESTED. HERE'S HOW TO TAKE IT BACK.</p>
     </section>
 
-    <!-- CTAs -->
-    <div class="cta-container">
-      <a href="https://github.com/cyphermonk21/privacy-zine" target="_blank" rel="noopener noreferrer" class="btn btn-outline">SOURCE CODE →</a>
-      <a href="./dist/privacy-zine-v2.0.0-en.pdf" class="btn btn-fill">DOWNLOAD PDF ↓</a>
-      <a href="https://github.com/cyphermonk21/privacy-zine/issues/new?template=tool-suggestion.yml" target="_blank" rel="noopener noreferrer" class="btn btn-outline">SUGGEST TOOL ↗</a>
-    </div>
+    <nav class="cta-row">
+      <a href="https://github.com/cyphermonk21/privacy-zine" target="_blank" class="btn">SOURCE CODE</a>
+      <a href="./dist/privacy-zine-v2.0.0-en.pdf" class="btn btn-fill">DOWNLOAD PDF</a>
+      <a href="https://github.com/cyphermonk21/privacy-zine/issues/new?template=tool-suggestion.yml" target="_blank" class="btn">SUGGEST TOOL</a>
+    </nav>
 
-    <!-- Stats Strip -->
     <section id="stats-strip" class="stats-strip"></section>
 
-    <!-- Intro Cards -->
     <section id="intro" class="grid-2"></section>
 
-    <!-- Encryption Callout -->
-    <section id="encryption" class="callout hidden">
-      <h2>🔐 Encryption, Explained Simply</h2>
-      <p></p>
-    </section>
+    <section id="encryption" class="callout hidden"></section>
 
-    <!-- Filters -->
     <div id="filter-bar" class="filter-bar hidden">
-      <span class="filter-label">DIFFICULTY:</span>
+      <span>DIF:</span>
       <button class="filter-btn active" data-filter="all">ALL</button>
       <button class="filter-btn" data-filter="easy">EASY</button>
       <button class="filter-btn" data-filter="medium">MEDIUM</button>
       <button class="filter-btn" data-filter="hard">HARD</button>
     </div>
 
-    <!-- Tool Categories -->
     <nav id="categories" class="categories-grid"></nav>
 
-    <!-- Reading List -->
     <section id="reading-list" class="hidden">
-      <h2>// WANT TO GO DEEPER?</h2>
-      <p class="section-subtitle">Books that shaped the privacy movement</p>
+      <h2>// BOOKS</h2>
+      <p class="subtitle">Books that shaped the privacy movement</p>
     </section>
 
-    <!-- Resources -->
     <section id="resources" class="hidden">
-      <h2>// LEVEL UP YOUR PRIVACY GAME</h2>
-      <p class="section-subtitle">Curated resources from the community</p>
+      <h2>// LINKS</h2>
+      <p class="subtitle">Curated resources from the community</p>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-      <div class="divider-horizontal">━━━━━━━━━━━━━━</div>
-      <p class="footer-tagline">NO COOKIES. NO TRACKING. NO ANALYTICS. JUST INFORMATION.</p>
-      <div class="footer-links">
-        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener noreferrer">CONTENT: CC BY-SA 4.0</a>
-        <span class="separator">|</span>
-        <a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer">CODE: MIT</a>
-      </div>
-      <p class="footer-quote">|| PRIVACY ISN'T HIDING. IT'S CHOOSING. ||</p>
+    <footer class="footnote">
+      <hr class="rule">
+      <p>NO COOKIES. NO TRACKING. NO ANALYTICS. JUST INFORMATION.</p>
+      <p><a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> | <a href="https://opensource.org/licenses/MIT">MIT</a></p>
+      <p class="quote">|| PRIVACY ISN'T HIDING. IT'S CHOOSING. ||</p>
     </footer>
-
-    <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop">↑</button>
-  </main>
+  </div>
 
   <script src="app.js"></script>
 </body>
