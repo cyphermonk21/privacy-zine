@@ -1,6 +1,3 @@
-# privacy-zine
-An open-source, editable, printable zine for sharing privacy-respecting alternatives. Scan. Swap. Share.
-
 # 🛡️ Digital Privacy Pocket Toolkit
 
 An open-source, editable, printable zine that helps everyday people discover privacy-respecting alternatives to the tools they already use.
@@ -65,6 +62,9 @@ See [Translation Guide](docs/TRANSLATION_GUIDE.md) — no design skills needed f
 | Messaging & Mail | Signal, bitchat, Proton Mail | WhatsApp, Gmail, Yahoo, Outlook |
 | Socials | Primal, Amethyst, YakiHonne | Facebook, Twitter, Instagram, Reddit |
 | Collaborative Work | Proton Drive/Docs/Sheets, AnyType, Jitsi Meet, Proton Meet | Google Suite, Slack, Notion, Zoom |
+
+# privacy-zine
+An open-source, editable, printable zine for sharing privacy-respecting alternatives.
 
 ## License
 
