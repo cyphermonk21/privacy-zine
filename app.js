@@ -2,7 +2,7 @@
 fetch('tools.json')
   .then(r => r.json())
   .then(data => initializePage(data))
-  .catch(err => showError());
+ .catch(err => showError(err));
 
 function initializePage(data) {
   initHero(data);
@@ -211,12 +211,22 @@ function initBackToTop() {
 }
 
 // ===== Error Handling =====
-function showError() {
+function showError(err) {
+  console.error('Full error:', err);
+  
+  let errorMsg = '⚠️ Failed to load tool data.';
+  
+  if (err instanceof SyntaxError) {
+    errorMsg = '⚠️ Your <code>tools.json</code> file has a syntax error. Check for trailing commas, missing commas, or unclosed brackets.';
+  } else if (err.message?.includes('Failed to fetch') || err instanceof TypeError) {
+    errorMsg = '⚠️ Could not find <code>tools.json</code>. Make sure it exists in the root folder.';
+  }
+  
   const categoriesEl = document.getElementById('categories');
   categoriesEl.innerHTML = `
     <div class="error">
-      ⚠️ Failed to load tool data. <br>
-      If viewing locally, run <code>python3 -m http.server</code> and visit <code>http://localhost:8000/</code>
+      ${errorMsg}<br>
+      <small>Check browser console (F12) for details.</small>
     </div>
   `;
 }
