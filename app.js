@@ -1,5 +1,5 @@
 // ===== Fetch Data =====
-fetch('src/data/tools.json')
+fetch('tools.json')
   .then(r => r.json())
   .then(data => initializePage(data))
   .catch(err => showError());
